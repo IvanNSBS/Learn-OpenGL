@@ -88,11 +88,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Includes\ImGUI\imgui.cpp" />
+    <ClCompile Include="Includes\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="Includes\ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="Includes\ImGUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Includes\ImGUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Includes\ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="src\ImGuiWindows\PRViewport.cpp" />
+    <ClCompile Include="src\ImGuiWindows\PRWindow.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\ImGUI\imconfig.h" />
+    <ClInclude Include="Includes\ImGUI\imgui.h" />
+    <ClInclude Include="Includes\ImGUI\imgui_impl_glfw.h" />
+    <ClInclude Include="Includes\ImGUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="Includes\ImGUI\imgui_internal.h" />
+    <ClInclude Include="Includes\ImGUI\imstb_rectpack.h" />
+    <ClInclude Include="Includes\ImGUI\imstb_textedit.h" />
+    <ClInclude Include="Includes\ImGUI\imstb_truetype.h" />
+    <ClInclude Include="src\ImGuiWindows\PRViewport.h" />
+    <ClInclude Include="src\ImGuiWindows\PRWindow.h" />
     <ClInclude Include="src\Shaders\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
