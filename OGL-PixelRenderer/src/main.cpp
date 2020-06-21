@@ -54,9 +54,10 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    //const char* vertexPath = "E:\\Visual Studio Projects\\OGL - PixelRenderer\\Pixel Renderer VS\\Assets\\Resources\\ShaderFiles\\defaultVertex.glsl";
+    const char* vertexPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfVert.glsl";
+    const char* fragPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfFrag.glsl";
     //const char* fragPath = "E:\\Visual Studio Projects\\OGL - PixelRenderer\\Pixel Renderer VS\\Assets\\Resources\\ShaderFiles\\defaultFrag.glsl";
-    ShaderProgram shader("Shaders/ShaderFiles/dfVert.glsl", "Shaders/ShaderFiles/dfFrag.glsl");
+    ShaderProgram shader(vertexPath, fragPath);
 
     // render loop
     // -----------
