@@ -6,11 +6,11 @@
 
 #include <string>
 
-class PRWindow
+class PR_Window
 {
 public:
-	PRWindow(const std::string &name);
-	~PRWindow();
+	PR_Window(const std::string &name);
+	~PR_Window();
 
 	virtual void Update() = 0;
 

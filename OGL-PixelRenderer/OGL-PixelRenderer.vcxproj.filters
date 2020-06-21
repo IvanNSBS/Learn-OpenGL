@@ -42,10 +42,13 @@
     <ClCompile Include="Includes\ImGUI\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGuiWindows\PRViewport.cpp">
+    <ClCompile Include="src\ImGuiWindows\PR_WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGuiWindows\PRWindow.cpp">
+    <ClCompile Include="src\ImGuiWindows\PR_Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiWindows\PR_Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,10 +80,13 @@
     <ClInclude Include="Includes\ImGUI\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGuiWindows\PRWindow.h">
+    <ClInclude Include="src\ImGuiWindows\PR_WindowManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGuiWindows\PRViewport.h">
+    <ClInclude Include="src\ImGuiWindows\PR_Viewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiWindows\PR_Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

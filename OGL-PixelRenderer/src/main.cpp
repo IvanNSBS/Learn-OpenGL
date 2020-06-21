@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "./Shaders/ShaderProgram.h"
-#include "ImGuiWindows/PRViewport.h"
+#include "ImGuiWindows/PR_Viewport.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -82,7 +82,7 @@ int main()
     const char* glsl_version = "#version 130";
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    PRViewport prViewport("Viewport");
+    PR_Viewport prViewport("Viewport");
 
     // render loop
     // -----------

@@ -3,13 +3,13 @@
 
 #include <string>
 #include <glm/vec2.hpp>
-#include "PRWindow.h"
+#include "PR_Window.h"
 
-class PRViewport : PRWindow
+class PR_Viewport : PR_Window
 {
 public:
-	PRViewport(const std::string &name);
-	~PRViewport();
+	PR_Viewport(const std::string &name);
+	~PR_Viewport();
 	void Update() override;
 	glm::vec2 ViewportSize() const;
 
