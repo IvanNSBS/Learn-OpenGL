@@ -12,7 +12,6 @@ ShaderProgram::ShaderProgram(const char* vertexPath, const char* fragPath)
 		return;
 	}
 
-
 	const char* vertexCode = vertex.c_str();
 	const char* fragmentCode = frag.c_str();
 	glShaderSource(vertexShader, 1, &vertexCode, NULL);

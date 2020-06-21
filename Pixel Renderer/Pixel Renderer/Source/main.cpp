@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "ShaderProgram.h"
+#include "GLShaders/ShaderProgram.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -62,8 +62,6 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     //glBindVertexArray(0);
 
-    const char* vertexPath = "E:\\Visual Studio Projects\\OGL - PixelRenderer\\Pixel Renderer VS\\Assets\\Resources\\ShaderFiles\\defaultVertex.glsl";
-    const char* fragPath = "E:\\Visual Studio Projects\\OGL - PixelRenderer\\Pixel Renderer VS\\Assets\\Resources\\ShaderFiles\\defaultFrag.glsl";
     ShaderProgram shader("./Resources/ShaderFiles/defaultVert.glsl", "./Resources/ShaderFiles/defaultFrag.glsl");
 
     // render loop

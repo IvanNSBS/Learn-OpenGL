@@ -19,16 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ShaderProgram.h" />
+    <ClCompile Include="Source\glad.c" />
+    <ClCompile Include="Source\GLShaders\ShaderProgram.cpp" />
+    <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ShaderFiles\defaultVert.glsl" />
     <None Include="Resources\ShaderFiles\defaultFrag.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\GLShaders\ShaderProgram.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
