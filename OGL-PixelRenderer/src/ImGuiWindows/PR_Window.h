@@ -12,7 +12,10 @@ public:
 	PR_Window(const std::string &name);
 	~PR_Window();
 
+	bool* Show();
+	std::string Name() const;
 	virtual void Update() = 0;
+
 
 protected:
 	virtual bool Begin();

@@ -117,6 +117,21 @@ void PR_WindowManager::ShowDockSpace(bool *open) {
         //ShowDockingDisabledMessage();
     }
 
+    if (ImGui::BeginMenuBar()) {
+        if (ImGui::BeginMenu("Windows")) {
+            int i = 0;
+            for (auto window : _windows) {
+                std::string it = "###" + std::to_string(i);
+                if (ImGui::MenuItem((window->Name() + it).c_str(), NULL, window->Show())) {
+                    printf("Entered if\n");
+                }
+                i++;
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
+
 
     ImGui::End();
 }

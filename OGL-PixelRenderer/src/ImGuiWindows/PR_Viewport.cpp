@@ -25,7 +25,7 @@ void PR_Viewport::Update() {
 		ImGui::Image((void*)(intptr_t)*_texture, {size.x, size.y});
 		
 		#ifdef _DEBUG
-			printf("Viewport size: (%f, %f)\n", size.x, size.y);
+			printf("Showing? %s\n", _show ? "Yes" : "No" );
 		#endif
 
 		End();
