@@ -8,14 +8,15 @@
 class PR_Viewport : public PR_Window
 {
 public:
-	PR_Viewport(const std::string &name);
+	PR_Viewport(const std::string& name);
+	PR_Viewport(const std::string& name, unsigned int* tex);
 	~PR_Viewport();
 	void Update() override;
 	glm::vec2 ViewportSize() const;
 
 protected:
+	unsigned int* _texture; // pointer to FBO texture;
 	glm::vec2 _viewportSize;
-	unsigned int* _FBO = nullptr; // pointer to FBO;
 };
 
 #endif

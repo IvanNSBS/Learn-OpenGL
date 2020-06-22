@@ -70,11 +70,36 @@ int main()
     ShaderProgram shader(vertexPath, fragPath);
 
     PR_WindowManager prWindowManager(window, "#version 130");
-    PR_Viewport prViewport("Viewport");
-    prWindowManager.AddWindow(&prViewport);
 
-    //GLuint FBO;
-    //glGenFramebuffers(FBO);
+
+
+    // FBO
+    GLuint FBO, fboTex, RBO;
+    glGenFramebuffers(1, &FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
+    glGenTextures(1, &fboTex);
+    glBindTexture(GL_TEXTURE_2D, fboTex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 128, 128, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTex, 0);
+
+    glGenRenderbuffers(1, &RBO);
+    glBindRenderbuffer(GL_RENDERBUFFER, RBO);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 128, 128);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    // END FBO
+
+    //PR_Viewport prViewport("Viewport");
+    PR_Viewport prViewport("Viewport", &fboTex);
+    prWindowManager.AddWindow(&prViewport);
 
     // render loop
     // -----------
@@ -83,6 +108,18 @@ int main()
         // input
         // -----
         processInput(window);
+
+        // render FBO
+        // ----
+        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+        glDisable(GL_DEPTH_TEST);
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         // render
         // ------
@@ -97,8 +134,8 @@ int main()
         //prViewport.Update();
 
         shader.Bind();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        //glBindVertexArray(VAO);
+        //glDrawArrays(GL_TRIANGLES, 0, 6);
 
         prWindowManager.Render();
         //ImGui::Render();

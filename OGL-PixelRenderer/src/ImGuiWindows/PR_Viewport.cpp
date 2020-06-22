@@ -7,6 +7,9 @@
 PR_Viewport::PR_Viewport(const std::string &name): PR_Window(name){
 	// fbo stuff here if necessasry
 }
+PR_Viewport::PR_Viewport(const std::string& name, unsigned int *tex) : PR_Window(name), _texture(tex) {
+	// fbo stuff here if necessasry
+}
 
 PR_Viewport::~PR_Viewport(){ }
 
@@ -19,7 +22,7 @@ void PR_Viewport::Update() {
 	else {
 		ImVec2 size = ImGui::GetContentRegionAvail();
 		_viewportSize = { size.x, size.y };
-		ImGui::Image((void*)(intptr_t)0, {size.x, size.y});
+		ImGui::Image((void*)(intptr_t)*_texture, {size.x, size.y});
 		
 		#ifdef _DEBUG
 			printf("Viewport size: (%f, %f)\n", size.x, size.y);
