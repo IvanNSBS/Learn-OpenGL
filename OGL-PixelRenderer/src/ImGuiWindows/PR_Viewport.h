@@ -5,7 +5,7 @@
 #include <glm/vec2.hpp>
 #include "PR_Window.h"
 
-class PR_Viewport : PR_Window
+class PR_Viewport : public PR_Window
 {
 public:
 	PR_Viewport(const std::string &name);
