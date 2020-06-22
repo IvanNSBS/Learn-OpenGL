@@ -44,10 +44,13 @@ int main()
     //triangle draw text
     float vertices[] = { -1, -1, 0,  -1,  1, 0,   1,  1, 0,
                           1,  1, 0,   1, -1, 0,  -1, -1, 0 };
+    float uvs[] = { 0, 0,   0, 1,   1, 1,
+                    1, 1,   1, 0,   0, 0};
 
-    GLuint VAO, VBO;
+    GLuint VAO, VBO, UVS;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &UVS);
 
     glBindVertexArray(VAO);
 
@@ -55,6 +58,11 @@ int main()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, UVS);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uvs), uvs, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
 
     const char* vertexPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfVert.glsl";
     const char* fragPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfFrag.glsl";
@@ -64,6 +72,9 @@ int main()
     PR_WindowManager prWindowManager(window, "#version 130");
     PR_Viewport prViewport("Viewport");
     prWindowManager.AddWindow(&prViewport);
+
+    //GLuint FBO;
+    //glGenFramebuffers(FBO);
 
     // render loop
     // -----------
@@ -87,7 +98,7 @@ int main()
 
         shader.Bind();
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         prWindowManager.Render();
         //ImGui::Render();
