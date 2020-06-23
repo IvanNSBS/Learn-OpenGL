@@ -30,3 +30,7 @@ void PR_Viewport::Update() {
 glm::vec2 PR_Viewport::ViewportSize() const {
 	return _viewportSize;
 }
+
+float PR_Viewport::AspectRatio() {
+	return _viewportSize.x / _viewportSize.y;
+}

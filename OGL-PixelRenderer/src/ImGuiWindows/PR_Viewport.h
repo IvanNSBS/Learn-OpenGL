@@ -13,6 +13,7 @@ public:
 	~PR_Viewport();
 	void Update() override;
 	glm::vec2 ViewportSize() const;
+	float AspectRatio();
 
 protected:
 	unsigned int* _texture; // pointer to FBO texture;

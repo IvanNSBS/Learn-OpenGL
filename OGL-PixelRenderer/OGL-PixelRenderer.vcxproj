@@ -54,8 +54,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build-int\$(Platform)-$(Configuration)\</IntDir>
-    <IncludePath>E:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\OGL-PixelRenderer\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\OGL-PixelRenderer\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -88,12 +88,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_demo.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_draw.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_impl_glfw.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_widgets.cpp" />
+    <ClCompile Include="src\Scene\Model.cpp" />
     <ClCompile Include="src\Scene\Mesh.cpp" />
     <ClCompile Include="src\ImGuiWindows\PR_Viewport.cpp" />
     <ClCompile Include="src\ImGuiWindows\PR_Window.cpp" />
@@ -103,6 +106,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scene\PHObject.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\Camera.h" />
     <ClInclude Include="Includes\ImGUI\imconfig.h" />
     <ClInclude Include="Includes\ImGUI\imgui.h" />
     <ClInclude Include="Includes\ImGUI\imgui_impl_glfw.h" />
@@ -111,11 +117,16 @@
     <ClInclude Include="Includes\ImGUI\imstb_rectpack.h" />
     <ClInclude Include="Includes\ImGUI\imstb_textedit.h" />
     <ClInclude Include="Includes\ImGUI\imstb_truetype.h" />
+    <ClInclude Include="src\Scene\Model.h" />
     <ClInclude Include="src\Scene\Mesh.h" />
     <ClInclude Include="src\ImGuiWindows\PR_Viewport.h" />
     <ClInclude Include="src\ImGuiWindows\PR_Window.h" />
     <ClInclude Include="src\ImGuiWindows\PR_WindowManager.h" />
     <ClInclude Include="src\Shaders\ShaderProgram.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ShaderFiles\phObjectFrag.glsl" />
+    <None Include="Resources\ShaderFiles\phObjectVert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

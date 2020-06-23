@@ -7,6 +7,9 @@
 #include "ImGuiWindows/PR_Viewport.h"
 #include "ImGuiWindows/PR_WindowManager.h"
 
+#include "Scene/Camera.h"
+#include "Scene/PHObject.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -103,6 +106,15 @@ int main()
     PR_Viewport prViewport("Viewport", &fboTex);
     prWindowManager.AddWindow(&prViewport);
 
+    //Camera cam({ 0, 0, 4 }, { 0, 0, -1 }, {0,1,0}, 30, 0.1, 100, &prViewport);
+
+    const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
+    const char* objFragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectFrag.glsl";
+    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3D Objects\\monkey_smooth.glsl";
+
+    //Transform trf({ 0,0,0 }, { 0,0,0 }, {0.35, 0.35, 0.35});
+    //PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -122,6 +134,9 @@ int main()
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        
+        //glEnable(GL_DEPTH_TEST);
+        //obj.Draw(cam);
 
         // render
         // ------
