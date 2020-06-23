@@ -164,6 +164,7 @@ int main()
 
         prWindowManager.Render();
 
+        //glViewport(0, 0, prViewport.ViewportSize().x, prViewport.ViewportSize().y);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

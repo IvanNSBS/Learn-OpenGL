@@ -37,8 +37,9 @@ public:
 	void begin_imgui() {
 		view = glm::lookAt(_pos, _pos + _lookAt, _up);
 		//projection = glm::perspective(glm::radians(_fov), _vpRef->AspectRatio(), _near, _far);
-		projection = glm::perspective(glm::radians(_fov), 1.0f, _near, _far);
-
+		//projection = glm::perspective(glm::radians(_fov), 1.0f, _near, _far);
+		glm::vec2 size = _vpRef->ViewportSize();
+		projection = glm::ortho(0.f, 1.0f, 0.f, 1.0f, 0.01f, 2000.f);
 		
 		if (ImGui::Begin("Camera")) {
 			std::string ar = std::to_string(_vpRef->AspectRatio());
