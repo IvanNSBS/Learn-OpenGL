@@ -51,6 +51,9 @@
     <ClCompile Include="src\ImGuiWindows\PR_Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shaders\ShaderProgram.h">
@@ -89,13 +92,8 @@
     <ClInclude Include="src\ImGuiWindows\PR_Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Shaders\ShaderFiles\dfFrag.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="src\Shaders\ShaderFiles\dfVert.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
+    <ClInclude Include="src\Scene\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

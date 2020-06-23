@@ -23,11 +23,6 @@ void PR_Viewport::Update() {
 		ImVec2 size = ImGui::GetContentRegionAvail();
 		_viewportSize = { size.x, size.y };
 		ImGui::Image((void*)(intptr_t)*_texture, {size.x, size.y});
-		
-		#ifdef _DEBUG
-			printf("Showing? %s\n", _show ? "Yes" : "No" );
-		#endif
-
 		End();
 	}
 }

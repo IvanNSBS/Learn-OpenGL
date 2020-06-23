@@ -18,7 +18,7 @@ int main()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // glfw window creation
@@ -64,12 +64,12 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
 
-    const char* vertexPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfVert.glsl";
-    const char* fragPath = "E:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\OGL-PixelRenderer\\src\\Shaders\\ShaderFiles\\dfFrag.glsl";
+    const char* vertexPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\dfVert.glsl";
+    const char* fragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\dfFrag.glsl";
     //const char* fragPath = "E:\\Visual Studio Projects\\OGL - PixelRenderer\\Pixel Renderer VS\\Assets\\Resources\\ShaderFiles\\defaultFrag.glsl";
     ShaderProgram shader(vertexPath, fragPath);
 
-    PR_WindowManager prWindowManager(window, "#version 130");
+    PR_WindowManager prWindowManager(window, "#version 430");
 
 
 
