@@ -17,6 +17,7 @@ void PR_Viewport::Update() {
 	if (!_show)
 		return;
 
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 	if (!Begin())
 		End();
 	else {
@@ -25,6 +26,7 @@ void PR_Viewport::Update() {
 		ImGui::Image((void*)(intptr_t)*_texture, {size.x, size.y});
 		End();
 	}
+	ImGui::PopStyleVar();
 }
 
 glm::vec2 PR_Viewport::ViewportSize() const {
