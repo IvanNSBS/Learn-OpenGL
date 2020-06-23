@@ -106,14 +106,19 @@ int main()
     PR_Viewport prViewport("Viewport", &fboTex);
     prWindowManager.AddWindow(&prViewport);
 
-    //Camera cam({ 0, 0, 4 }, { 0, 0, -1 }, {0,1,0}, 30, 0.1, 100, &prViewport);
+    glm::vec3 pos(0,0,4);
+    glm::vec3 at(0, 0, -1);
+    glm::vec3 up(0,1,0);
+    Camera cam(pos, at, up, 30, 0.1, 100, &prViewport);
 
     const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
     const char* objFragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectFrag.glsl";
-    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3D Objects\\monkey_smooth.glsl";
+    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\monkey_smooth.obj";
 
-    //Transform trf({ 0,0,0 }, { 0,0,0 }, {0.35, 0.35, 0.35});
-    //PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+
+    Transform trf({ 0,0,0 }, { 0,0,0 }, {1, 1, 1});
+    PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+    obj.Start();
 
     // render loop
     // -----------
@@ -131,32 +136,32 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+        //draw bg first
+        shader.Bind();
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         
-        //glEnable(GL_DEPTH_TEST);
-        //obj.Draw(cam);
+        glEnable(GL_DEPTH_TEST);
+        obj.Draw(cam);
 
-        // render
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        // render normally
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //ImGui_ImplOpenGL3_NewFrame();
-        //ImGui_ImplGlfw_NewFrame();
-        //ImGui::NewFrame();
 
         prWindowManager.Update();
-        //prViewport.Update();
+        cam.begin_imgui();
+        obj.start_imgui();
 
-        shader.Bind();
+
         //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES, 0, 6);
 
         prWindowManager.Render();
-        //ImGui::Render();
-        //ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

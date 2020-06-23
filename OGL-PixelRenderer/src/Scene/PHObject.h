@@ -40,10 +40,6 @@ private:
 	GLuint objVAO;
 	GLuint objVBO[3]; //0 = vertices, 1 = normals, 2 = uvs;
 	GLuint texture;
-	bool textureWasLoaded = false;
-	bool useCelShading = false;
-	bool renderNormals = false;
-	bool renderDepth = false;
 	float celThreshold = 0.425f;
 	float attenuation = 0.750f;
 
@@ -188,8 +184,6 @@ public:
 	glm::vec3 color = glm::vec3(0.35, 0.175, 0.155);
 	float shininess = 3.6;
 	float specStr = 1.f;
-	float outlineThickness = 0.025;
-	glm::vec3 outlineColor = glm::vec3(0);
 
 	PHObject(const char* filePath, const char* vertexPath, const char* fragPath) {
 		if (!load_from_file(filePath))
@@ -221,7 +215,7 @@ public:
 
 
 	void start_imgui() {
-		if (ImGui::CollapsingHeader((name + " Properties").c_str())) {
+		if (ImGui::Begin("PH Object")) {
 			ImGui::DragFloat3((name + " Position").c_str(), glm::value_ptr(transform.location), 0.1f);
 			ImGui::DragFloat3((name + " Rotation").c_str(), glm::value_ptr(transform.rotation), 1.f);
 			ImGui::DragFloat3((name + " Scale").c_str(), glm::value_ptr(transform.scale), 0.05f);
@@ -230,9 +224,6 @@ public:
 			ImGui::DragFloat((name + " Spec Strength").c_str(), &specStr, 0.01, 0, 1);
 			ImGui::DragFloat((name + " Cel Threshold").c_str(), &celThreshold, 0.01, 0, 1);
 			ImGui::DragFloat((name + " Cel Attenuation").c_str(), &attenuation, 0.01, 0, 1);
-			ImGui::Checkbox((name + " Use Cel Shading").c_str(), &useCelShading);
-			ImGui::Checkbox((name + " See Normals").c_str(), &renderNormals);
-			ImGui::Checkbox((name + " See Depth").c_str(), &renderDepth);
 		}
 	}
 
@@ -260,6 +251,8 @@ public:
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		printf("Started Object!\n");
 	}
 
 	void Draw(Camera& cam) {
@@ -271,9 +264,6 @@ public:
 		shader->SetFloat3("objectColor", color);
 		shader->SetFloat("celThreshold", celThreshold);
 		shader->SetFloat("attenuation", attenuation);
-		shader->SetBool("useCelShading", useCelShading);
-		shader->SetBool("renderNormals", renderNormals);
-		shader->SetBool("renderDepth", renderDepth);
 		shader->SetFloat("shininess", shininess);
 		shader->SetFloat("specStr", specStr);
 		shader->SetFloat3("viewPos", cam.get_cam_pos());

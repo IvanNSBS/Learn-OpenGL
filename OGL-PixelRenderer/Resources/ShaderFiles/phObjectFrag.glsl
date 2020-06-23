@@ -16,6 +16,7 @@ uniform vec3 viewPos;
 uniform float shininess;
 uniform float specStr;
 
+
 void main(){
 	vec3 lightDir = normalize(vec3(0, 0, 0.5));
 	vec3 lightColor = vec3(1,1,1);
@@ -23,7 +24,6 @@ void main(){
 
 	//ambient
 	vec3 ambient = 0.1 * lightColor;
-
 
 	//diffuse
 	vec3 norm = normalize(normal);
