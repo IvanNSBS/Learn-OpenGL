@@ -85,7 +85,7 @@ int main()
 
     glGenTextures(1, &fboTex);
     glBindTexture(GL_TEXTURE_2D, fboTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sizeSqr, sizeSqr, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -94,8 +94,11 @@ int main()
 
     glGenRenderbuffers(1, &RBO);
     glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sizeSqr, sizeSqr);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
+
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
@@ -119,6 +122,7 @@ int main()
     Transform trf({ 0,0,0 }, { 0,0,0 }, {1, 1, 1});
     PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
     obj.Start();
+    glEnable(GL_DEPTH_TEST);
 
     // render loop
     // -----------
@@ -131,16 +135,17 @@ int main()
         // render FBO
         // ----
         glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+        //glDisable(GL_DEPTH_TEST);
         //draw bg first
-        shader.Bind();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        //shader.Bind();
+        //glBindVertexArray(VAO);
+        //glDrawArrays(GL_TRIANGLES, 0, 6);
         
         glEnable(GL_DEPTH_TEST);
         obj.Draw(cam);
