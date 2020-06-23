@@ -76,12 +76,12 @@ int main()
 
 
 
-    // FBO
+    //Begin FBO
     GLuint FBO, fboTex, RBO;
     glGenFramebuffers(1, &FBO);
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-    int sizeSqr = 512;
+    int sizeSqr = 128;
 
     glGenTextures(1, &fboTex);
     glBindTexture(GL_TEXTURE_2D, fboTex);
@@ -108,6 +108,8 @@ int main()
     //PR_Viewport prViewport("Viewport");
     PR_Viewport prViewport("Viewport", &fboTex);
     prWindowManager.AddWindow(&prViewport);
+
+    glViewport(0, 0, sizeSqr, sizeSqr);
 
     glm::vec3 pos(0,0,4);
     glm::vec3 at(0, 0, -1);
@@ -140,12 +142,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-        //glDisable(GL_DEPTH_TEST);
+        glDisable(GL_DEPTH_TEST);
         //draw bg first
-        //shader.Bind();
-        //glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        shader.Bind();
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         
         glEnable(GL_DEPTH_TEST);
         obj.Draw(cam);
@@ -157,14 +158,9 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
         prWindowManager.Update();
         cam.begin_imgui();
         obj.start_imgui();
-
-
-        //glBindVertexArray(VAO);
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
 
         prWindowManager.Render();
 
@@ -196,7 +192,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
-    SCR_WIDTH = width;
-    SCR_HEIGHT = height;
+    //glViewport(0, 0, width, height);
+    //SCR_WIDTH = width;
+    //SCR_HEIGHT = height;
 }

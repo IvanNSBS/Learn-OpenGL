@@ -41,7 +41,7 @@ void PR_WindowManager::Update() {
     ImGuiIO& io = ImGui::GetIO();
 
     bool show = true;
-    //ShowDockSpace(&show);
+    ShowDockSpace(&show);
     UpdateWindows();
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
