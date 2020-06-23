@@ -47,8 +47,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)build\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build-int\$(Platform)-$(Configuration)\</IntDir>
-    <IncludePath>E:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\OGL-PixelRenderer\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\OGL-PixelRenderer\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Visual Studio Projects\OGL-PixelRenderer\OGL-PixelRenderer\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
