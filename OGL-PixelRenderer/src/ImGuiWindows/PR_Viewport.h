@@ -8,7 +8,6 @@
 class PR_Viewport : public PR_Window
 {
 public:
-	PR_Viewport(const std::string& name);
 	PR_Viewport(const std::string& name, unsigned int* tex);
 	~PR_Viewport();
 	void Update() override;
@@ -16,7 +15,7 @@ public:
 	float AspectRatio();
 
 protected:
-	unsigned int* _texture; // pointer to FBO texture;
+	unsigned int* _texture = nullptr; // pointer to FBO texture;
 	glm::vec2 _viewportSize;
 };
 

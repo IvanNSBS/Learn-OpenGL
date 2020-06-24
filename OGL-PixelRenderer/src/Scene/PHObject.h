@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Shaders/ShaderProgram.h"
-#include "camera.h"
+#include "./Cameras/Camera.h"
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -266,7 +266,7 @@ public:
 		shader->SetFloat("attenuation", attenuation);
 		shader->SetFloat("shininess", shininess);
 		shader->SetFloat("specStr", specStr);
-		shader->SetFloat3("viewPos", cam.get_cam_pos());
+		shader->SetFloat3("viewPos", cam.GetPos());
 
 		glBindVertexArray(objVAO);
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);

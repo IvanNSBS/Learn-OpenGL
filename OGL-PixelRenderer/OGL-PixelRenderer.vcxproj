@@ -88,8 +88,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.cpp" />
+    <ClCompile Include="src\Scene\Cameras\PerspectiveCam.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
-    <ClCompile Include="src\Scene\Camera.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_demo.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_draw.cpp" />
@@ -106,9 +107,12 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Scene\Cameras\PerspectiveCam.h" />
+    <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyDef.h" />
+    <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.h" />
     <ClInclude Include="src\Scene\PHObject.h" />
     <ClInclude Include="src\Scene\Scene.h" />
-    <ClInclude Include="src\Scene\Camera.h" />
+    <ClInclude Include="src\Scene\Cameras\Camera.h" />
     <ClInclude Include="Includes\ImGUI\imconfig.h" />
     <ClInclude Include="Includes\ImGUI\imgui.h" />
     <ClInclude Include="Includes\ImGUI\imgui_impl_glfw.h" />

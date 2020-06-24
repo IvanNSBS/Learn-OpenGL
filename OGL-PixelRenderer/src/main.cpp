@@ -6,8 +6,9 @@
 #include "./Shaders/ShaderProgram.h"
 #include "ImGuiWindows/PR_Viewport.h"
 #include "ImGuiWindows/PR_WindowManager.h"
+#include "ImGuiWindows/PropertyWindow/PR_PropertyWindow.h"
 
-#include "Scene/Camera.h"
+#include "Scene/Cameras/PerspectiveCam.h"
 #include "Scene/PHObject.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -105,16 +106,19 @@ int main()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     // END FBO
 
-    //PR_Viewport prViewport("Viewport");
-    PR_Viewport prViewport("Viewport", &fboTex);
-    prWindowManager.AddWindow(&prViewport);
-
-    glViewport(0, 0, sizeSqr, sizeSqr);
-
     glm::vec3 pos(0,0,4);
     glm::vec3 at(0, 0, -1);
     glm::vec3 up(0,1,0);
-    Camera cam(pos, at, up, 30, 0.1, 100, &prViewport);
+    PerspectiveCam cam(pos, at, up, 30, 0.1, 100);
+
+    //PR_Viewport prViewport("Viewport");
+    PR_Viewport prViewport("Viewport", &fboTex);
+    prWindowManager.AddWindow(&prViewport);
+    PR_PropertyWindow prCamProperty("Camera", &cam);
+    prWindowManager.AddWindow(&prCamProperty);
+
+    glViewport(0, 0, sizeSqr, sizeSqr);
+
 
     const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
     const char* objFragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectFrag.glsl";
@@ -159,7 +163,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         prWindowManager.Update();
-        cam.begin_imgui();
+        //cam.begin_imgui();
         obj.start_imgui();
 
         prWindowManager.Render();

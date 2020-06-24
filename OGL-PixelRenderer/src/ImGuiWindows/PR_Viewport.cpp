@@ -4,9 +4,6 @@
 #include <cstdio>
 #endif
 
-PR_Viewport::PR_Viewport(const std::string &name): PR_Window(name){
-	// fbo stuff here if necessasry
-}
 PR_Viewport::PR_Viewport(const std::string& name, unsigned int *tex) : PR_Window(name), _texture(tex) {
 	// fbo stuff here if necessasry
 }
