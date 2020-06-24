@@ -16,6 +16,13 @@ FrameBuffer::~FrameBuffer() {
 }
 
 void FrameBuffer::Initialize() {
+
+    if (_ID) {
+        glDeleteFramebuffers(1, &_ID);
+        glDeleteTextures(1, &_colorAttachment);
+        glDeleteTextures(1, &_depthAttachment);
+    }
+
     glGenFramebuffers(1, &_ID);
     glBindFramebuffer(GL_FRAMEBUFFER, _ID);
 
@@ -40,13 +47,13 @@ void FrameBuffer::Initialize() {
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    glViewport(0, 0, _width, _height);
 
 }
 
 
 void FrameBuffer::Bind() {
     glBindFramebuffer(GL_FRAMEBUFFER, _ID);
+    glViewport(0, 0, _width, _height);
 }
 
 
@@ -56,10 +63,7 @@ void FrameBuffer::Unbind() {
 
 
 void FrameBuffer::Resize(unsigned int nwidth, unsigned int nheight) {
-    glDeleteFramebuffers(1, &_ID);
-    glDeleteTextures(1, &_colorAttachment);
-    glDeleteTextures(1, &_depthAttachment);
-
+    
     _width = nwidth;
     _height = nheight;
 
@@ -67,9 +71,18 @@ void FrameBuffer::Resize(unsigned int nwidth, unsigned int nheight) {
 }
 
 void FrameBuffer::BeginProperty() {
-    static int size[] = { _width, _height };
+    //static int size[] = { _width, _height };
+    static int size = _width;
     ImGui::Text("FrameBuffer Size: ");
-    ImGui::SliderInt2("###size", size, 0, 1024);
+    //ImGui::SliderInt2("###size", size, 0, 256);
+    ImGui::SliderInt("###size", &size, 0, 1024);
+
+    ////if (size[0] != _width || size[1] != _height) {
+    //    //Resize(size[0], size[1]);
+    ////}
+    //if (size != _width) {
+    //    Resize(size, size);
+    //}
 }
 
 GLuint* FrameBuffer::GetColorAttachment() {

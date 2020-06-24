@@ -4,7 +4,7 @@
 #include <cstdio>
 #endif
 
-PR_Viewport::PR_Viewport(const std::string& name, unsigned int *tex) : PR_Window(name), _texture(tex) {
+PR_Viewport::PR_Viewport(const std::string& name, FrameBuffer* buff) : PR_Window(name), _buffer(buff) {
 	// fbo stuff here if necessasry
 }
 
@@ -19,8 +19,12 @@ void PR_Viewport::Update() {
 		End();
 	else {
 		ImVec2 size = ImGui::GetContentRegionAvail();
-		_viewportSize = { size.x, size.y };
-		ImGui::Image((void*)(intptr_t)*_texture, {size.x, size.y});
+		if (_viewportSize != glm::vec2{ size.x, size.y }) {
+			_viewportSize = { size.x, size.y };
+			//_buffer->Resize(_viewportSize.x, _viewportSize.y);
+			printf("Resizing!\n");
+		}
+		ImGui::Image((void*)(intptr_t)*_buffer->GetColorAttachment(), {_viewportSize.x, _viewportSize.y});
 		End();
 	}
 	ImGui::PopStyleVar();

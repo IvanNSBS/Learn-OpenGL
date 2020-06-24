@@ -83,7 +83,7 @@ int main()
 
 
     //PR_Viewport prViewport("Viewport");
-    PR_Viewport prViewport("Viewport", frameBuffer.GetColorAttachment());
+    PR_Viewport prViewport("Viewport", &frameBuffer);
     prWindowManager.AddWindow(&prViewport);
 
     glm::vec3 pos(0,0,4);
@@ -117,8 +117,6 @@ int main()
         // render FBO
         // ----
         frameBuffer.Bind();
-        glEnable(GL_DEPTH_TEST);
-
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
