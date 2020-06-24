@@ -11,6 +11,8 @@
 #include "Scene/Cameras/PerspectiveCam.h"
 #include "Scene/PHObject.h"
 
+#include "OpenGL/Buffers/FrameBuffer.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -77,38 +79,11 @@ int main()
 
 
 
-    //Begin FBO
-    GLuint FBO, fboTex, RBO;
-    glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-
-    int sizeSqr = 128;
-
-    glGenTextures(1, &fboTex);
-    glBindTexture(GL_TEXTURE_2D, fboTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sizeSqr, sizeSqr, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTex, 0);
-
-    glGenRenderbuffers(1, &RBO);
-    glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, sizeSqr, sizeSqr);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
-
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // END FBO
+    FrameBuffer frameBuffer(128, 128);
 
 
     //PR_Viewport prViewport("Viewport");
-    PR_Viewport prViewport("Viewport", &fboTex);
+    PR_Viewport prViewport("Viewport", frameBuffer.GetColorAttachment());
     prWindowManager.AddWindow(&prViewport);
 
     glm::vec3 pos(0,0,4);
@@ -117,8 +92,8 @@ int main()
     PerspectiveCam cam(pos, at, up, 30, 0.1, 100, &prViewport);
     PR_PropertyWindow prCamProperty("Perspective Camera", &cam);
     prWindowManager.AddWindow(&prCamProperty);
-
-    glViewport(0, 0, sizeSqr, sizeSqr);
+    PR_PropertyWindow fbProperty("Frame Buffer", &frameBuffer);
+    prWindowManager.AddWindow(&fbProperty);
 
 
     const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
@@ -141,7 +116,7 @@ int main()
 
         // render FBO
         // ----
-        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+        frameBuffer.Bind();
         glEnable(GL_DEPTH_TEST);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -156,7 +131,7 @@ int main()
         glEnable(GL_DEPTH_TEST);
         obj.Draw(cam);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        frameBuffer.Unbind();
 
         // render normally
         // ------

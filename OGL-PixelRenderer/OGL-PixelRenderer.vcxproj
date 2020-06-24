@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\OpenGL\Buffers\FrameBuffer.cpp" />
     <ClCompile Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.cpp" />
     <ClCompile Include="src\Scene\Cameras\PerspectiveCam.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
@@ -107,6 +108,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\OpenGL\Buffers\FrameBuffer.h" />
     <ClInclude Include="src\Scene\Cameras\PerspectiveCam.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyDef.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.h" />
