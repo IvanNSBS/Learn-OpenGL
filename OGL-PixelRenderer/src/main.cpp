@@ -106,14 +106,15 @@ int main()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     // END FBO
 
-    glm::vec3 pos(0,0,4);
-    glm::vec3 at(0, 0, -1);
-    glm::vec3 up(0,1,0);
-    PerspectiveCam cam(pos, at, up, 30, 0.1, 100);
 
     //PR_Viewport prViewport("Viewport");
     PR_Viewport prViewport("Viewport", &fboTex);
     prWindowManager.AddWindow(&prViewport);
+
+    glm::vec3 pos(0,0,4);
+    glm::vec3 at(0, 0, -1);
+    glm::vec3 up(0,1,0);
+    PerspectiveCam cam(pos, at, up, 30, 0.1, 100, &prViewport);
     PR_PropertyWindow prCamProperty("Camera", &cam);
     prWindowManager.AddWindow(&prCamProperty);
 

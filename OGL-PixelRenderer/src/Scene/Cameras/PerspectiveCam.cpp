@@ -13,7 +13,7 @@ PerspectiveCam::PerspectiveCam(
 }
 
 void PerspectiveCam::Update() {
-	float ratio = _vpRef == nullptr ? 1.0f : _vpRef->AspectRatio();
+	float ratio = (int)_aspectType == 0 ? _vpRef->AspectRatio() : 1.0f;
 	projection = glm::perspective(glm::radians(_fov), ratio, _near, _far);
 	view = glm::lookAt(_pos, _pos + _lookAt, _up);
 }
@@ -28,4 +28,16 @@ void PerspectiveCam::BeginProperty() {
 	ImGui::DragFloat3("###Rotation", glm::value_ptr(_rotation), 0.05f);
 	ImGui::Text("Field of View: ");
 	ImGui::DragFloat("###FoV", &_fov, 0.05f);
+	ImGui::Text("Near: ");
+	ImGui::DragFloat("###Near", &_near, 0.01f);
+	ImGui::Text("Far: ");
+	ImGui::DragFloat("###Far", &_far, 0.1f);
+	ImGui::Text("Use Aspect Ratio From:");
+	ImGui::Combo("###types", (int*)&_aspectType, "Viewport\0FrameBuffer\0\0");
+
+	// --------------------
+	ImGui::Separator();
+	glm::vec2 vpSize = _vpRef == nullptr ? glm::vec2{0, 0} : _vpRef->ViewportSize();
+	std::string size = _vpRef == nullptr ? " ? " : "(" + std::to_string(vpSize.x) + ", " + std::to_string(vpSize.y) + ")";
+	ImGui::Text( ("ViewportSize: " + size).c_str() );
 }
