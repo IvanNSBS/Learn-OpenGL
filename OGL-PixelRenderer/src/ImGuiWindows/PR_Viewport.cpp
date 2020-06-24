@@ -19,12 +19,11 @@ void PR_Viewport::Update() {
 		End();
 	else {
 		ImVec2 size = ImGui::GetContentRegionAvail();
+		ImGui::Image((void*)(intptr_t)*_buffer->GetColorAttachment(), { _viewportSize.x, _viewportSize.y });
+
 		if (_viewportSize != glm::vec2{ size.x, size.y }) {
 			_viewportSize = { size.x, size.y };
-			//_buffer->Resize(_viewportSize.x, _viewportSize.y);
-			printf("Resizing!\n");
 		}
-		ImGui::Image((void*)(intptr_t)*_buffer->GetColorAttachment(), {_viewportSize.x, _viewportSize.y});
 		End();
 	}
 	ImGui::PopStyleVar();

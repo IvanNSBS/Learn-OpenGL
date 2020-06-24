@@ -12,7 +12,7 @@ FrameBuffer::FrameBuffer(
 FrameBuffer::~FrameBuffer() {
     glDeleteFramebuffers(1, &_ID);
     glDeleteTextures(1, &_colorAttachment);
-    glDeleteTextures(1, &_depthAttachment);
+    glDeleteRenderbuffers(1, &_depthAttachment);
 }
 
 void FrameBuffer::Initialize() {
@@ -20,7 +20,7 @@ void FrameBuffer::Initialize() {
     if (_ID) {
         glDeleteFramebuffers(1, &_ID);
         glDeleteTextures(1, &_colorAttachment);
-        glDeleteTextures(1, &_depthAttachment);
+        glDeleteRenderbuffers(1, &_depthAttachment);
     }
 
     glGenFramebuffers(1, &_ID);
@@ -67,6 +67,8 @@ void FrameBuffer::Resize(unsigned int nwidth, unsigned int nheight) {
     _width = nwidth;
     _height = nheight;
 
+    //glViewport(0, 0, _width, _height);
+
     Initialize();
 }
 
@@ -80,9 +82,9 @@ void FrameBuffer::BeginProperty() {
     ////if (size[0] != _width || size[1] != _height) {
     //    //Resize(size[0], size[1]);
     ////}
-    //if (size != _width) {
-    //    Resize(size, size);
-    //}
+    if (size != _width) {
+        Resize(size, size);
+    }
 }
 
 GLuint* FrameBuffer::GetColorAttachment() {
