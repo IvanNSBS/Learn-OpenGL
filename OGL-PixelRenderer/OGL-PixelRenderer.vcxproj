@@ -103,7 +103,7 @@
     <ClCompile Include="src\ImGuiWindows\PR_Window.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\ImGuiWindows\PR_WindowManager.cpp" />
-    <ClCompile Include="src\Shaders\ShaderProgram.cpp" />
+    <ClCompile Include="src\OpenGL\Shaders\ShaderProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +126,7 @@
     <ClInclude Include="src\ImGuiWindows\PR_Viewport.h" />
     <ClInclude Include="src\ImGuiWindows\PR_Window.h" />
     <ClInclude Include="src\ImGuiWindows\PR_WindowManager.h" />
-    <ClInclude Include="src\Shaders\ShaderProgram.h" />
+    <ClInclude Include="src\OpenGL\Shaders\ShaderProgram.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ShaderFiles\phObjectFrag.glsl" />

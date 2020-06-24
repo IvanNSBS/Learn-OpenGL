@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shaders/ShaderProgram.h"
+#include "../OpenGL/Shaders/ShaderProgram.h"
 #include "./Cameras/Camera.h"
 #include <vector>
 #include <iostream>

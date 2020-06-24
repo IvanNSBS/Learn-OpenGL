@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "./Shaders/ShaderProgram.h"
+#include "./OpenGL/Shaders/ShaderProgram.h"
 #include "ImGuiWindows/PR_Viewport.h"
 #include "ImGuiWindows/PR_WindowManager.h"
 #include "ImGuiWindows/PropertyWindow/PR_PropertyWindow.h"
@@ -115,7 +115,7 @@ int main()
     glm::vec3 at(0, 0, -1);
     glm::vec3 up(0,1,0);
     PerspectiveCam cam(pos, at, up, 30, 0.1, 100, &prViewport);
-    PR_PropertyWindow prCamProperty("Camera", &cam);
+    PR_PropertyWindow prCamProperty("Perspective Camera", &cam);
     prWindowManager.AddWindow(&prCamProperty);
 
     glViewport(0, 0, sizeSqr, sizeSqr);
