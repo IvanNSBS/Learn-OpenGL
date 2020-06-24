@@ -40,4 +40,5 @@ void PerspectiveCam::BeginProperty() {
 	glm::vec2 vpSize = _vpRef == nullptr ? glm::vec2{0, 0} : _vpRef->ViewportSize();
 	std::string size = _vpRef == nullptr ? " ? " : "(" + std::to_string(vpSize.x) + ", " + std::to_string(vpSize.y) + ")";
 	ImGui::Text( ("ViewportSize: " + size).c_str() );
+	ImGui::Text(("Aspect Ratio: " + std::to_string((int)_aspectType == 0 ? _vpRef->AspectRatio() : 1.0f)).c_str());
 }
