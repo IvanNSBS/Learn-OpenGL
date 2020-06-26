@@ -91,6 +91,8 @@
     <ClCompile Include="src\OpenGL\Buffers\FrameBuffer.cpp" />
     <ClCompile Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Material.cpp" />
+    <ClCompile Include="src\Scene\3D Mesh\Mesh.cpp" />
+    <ClCompile Include="src\Scene\3D Mesh\Model.cpp" />
     <ClCompile Include="src\Scene\Cameras\PerspectiveCam.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui.cpp" />
@@ -99,8 +101,6 @@
     <ClCompile Include="Includes\ImGUI\imgui_impl_glfw.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui_widgets.cpp" />
-    <ClCompile Include="src\Scene\3D Mesh\Model.cpp" />
-    <ClCompile Include="src\Scene\3D Mesh\Mesh.cpp" />
     <ClCompile Include="src\ImGuiWindows\PR_Viewport.cpp" />
     <ClCompile Include="src\ImGuiWindows\PR_Window.cpp" />
     <ClCompile Include="src\glad.c" />
