@@ -8,8 +8,8 @@ PerspectiveCam::PerspectiveCam(
 	_vpRef = viewport;
 	_pos = from;
 	float ratio = _vpRef == nullptr ? 1.0f : _vpRef->AspectRatio();
-	projection = glm::perspective(glm::radians(_fov), ratio, _near, _far);
-	view = glm::lookAt(_pos, _pos + _lookAt, _up);
+	//projection = glm::perspective(glm::radians(_fov), ratio, _near, _far);
+	//view = glm::lookAt(_pos, _pos + _lookAt, _up);
 }
 
 void PerspectiveCam::Update() {
