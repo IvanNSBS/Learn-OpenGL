@@ -271,12 +271,4 @@ public:
 		glBindVertexArray(objVAO);
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
 	}
-
-	//void Render() {
-
-	//	glBindVertexArray(objVAO);
-	//	glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
-	//	glBindVertexArray(0);
-	//}
-
 };

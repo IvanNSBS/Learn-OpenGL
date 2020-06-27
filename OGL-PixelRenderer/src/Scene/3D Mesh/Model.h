@@ -9,9 +9,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../../OpenGL/Shaders/ShaderProgram.h"
 
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include "../Cameras/Camera.h"
 
@@ -39,7 +39,8 @@ protected:
 	glm::mat4 _model;
 
 	// temp function
-	bool ReadFromFile(const char *path);
-
+	bool LoadFromFile(const char *path);
+	void ProcessNode(aiNode* node, const aiScene* scene);
+	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
 };
 

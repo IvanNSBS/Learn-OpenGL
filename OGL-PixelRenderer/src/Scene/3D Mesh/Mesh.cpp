@@ -9,7 +9,7 @@ Mesh::Mesh (
 	SetupMesh();
 }
 
-Mesh::Mesh(const std::vector<Vertex>& verts) : vertices(verts) {
+Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs) : vertices(verts) {
     SetupMesh();
 }
 
