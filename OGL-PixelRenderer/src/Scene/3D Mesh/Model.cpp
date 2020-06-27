@@ -45,14 +45,14 @@ void Model::BeginProperty() {
 	ImGui::Text("Position: ");
 	ImGui::DragFloat3("###modelPos", glm::value_ptr(_position), 0.05f);
 	ImGui::Text("Rotation: ");
-	ImGui::DragFloat3("###modelRot", glm::value_ptr(_rotation), 0.1f);
+	ImGui::DragFloat3("###modelRot", glm::value_ptr(_rotation), 1.0f);
 	ImGui::Text("Scale: ");
 	ImGui::DragFloat3("###modelScale", glm::value_ptr(_scale), 0.05f);
 
 	int i = 0;
-	for (auto mesh : _meshes) {
-		if (ImGui::CollapsingHeader(mesh->material->Name().c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
-			mesh->BeginProperty();
+	for (auto& material : matMap ) {
+		if (ImGui::CollapsingHeader(material.second->Name().c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
+			material.second->BeginProperty();
 		}
 		i++;
 	}
@@ -138,11 +138,17 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 		float shininess;
 
 		aiMat->Get(AI_MATKEY_NAME, name);
-		aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffColor);
-		aiMat->Get(AI_MATKEY_SHININESS, shininess);
+		if (matMap.find(name.C_Str()) == matMap.end()) {
 
-		Material* mat = new Material(_shader, name.C_Str(), 0.7, 0.7, 0.1f, {diffColor.r, diffColor.g, diffColor.b});
-		return new Mesh(vertices, indices, mat);
+			aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffColor);
+			aiMat->Get(AI_MATKEY_SHININESS, shininess);
+
+			Material* mat = new Material(_shader, name.C_Str(), 0.01, 0.7, 0.1f, { diffColor.r, diffColor.g, diffColor.b });
+			matMap[name.C_Str()] = mat;
+			return new Mesh(vertices, indices, mat);
+		}
+		else
+			return new Mesh(vertices, indices, matMap[name.C_Str()]);
 	}
 	
 	return new Mesh(vertices, indices, new Material(_shader, ""));

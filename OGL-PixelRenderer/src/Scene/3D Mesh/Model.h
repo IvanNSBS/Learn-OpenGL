@@ -15,6 +15,8 @@
 
 #include "../Cameras/Camera.h"
 
+#include <unordered_map>
+
 class Model : public PR_PropertyDef
 {
 public:
@@ -27,7 +29,8 @@ public:
 	glm::mat4* ModelMatrix();
 
 protected:
-	
+	std::unordered_map<std::string, Material*> matMap; // map with existing materials
+
 	ShaderProgram* _shader = nullptr;
 
 	std::vector<Mesh*> _meshes;
@@ -35,7 +38,7 @@ protected:
 	glm::vec3 _position = glm::vec3(0);
 	glm::vec3 _rotation = glm::vec3(0);
 	glm::vec3 _scale = glm::vec3(1);
-
+	
 	glm::mat4 _model;
 
 	// temp function
