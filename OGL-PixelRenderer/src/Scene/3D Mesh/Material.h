@@ -13,6 +13,7 @@ class Material : public PR_PropertyDef
 public:
 
 	Material(ShaderProgram* sp);
+	Material(ShaderProgram* sp, float thr, float att, float shinn, glm::vec3 col);
 	~Material();
 
 	void Use();
@@ -25,7 +26,6 @@ private:
 	float _celThreshold = 0.425f;
 	float _attenuation = 0.750f;
 	float _shininess = 0.1f;
-	float _specStr = 1.f;
 	glm::vec3 _color{ 1, 0, 1 };
 };
 

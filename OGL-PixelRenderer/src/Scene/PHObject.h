@@ -261,12 +261,12 @@ public:
 		shader->SetMat4("model", GL_FALSE, glm::value_ptr(*get_obj_model_matrix()));
 		shader->SetMat4("view", GL_FALSE, glm::value_ptr(*cam.get_view_matrix()));
 		shader->SetMat4("projection", GL_FALSE, glm::value_ptr(*cam.get_projection_matrix()));
-		shader->SetFloat3("objectColor", color);
-		shader->SetFloat("celThreshold", celThreshold);
-		shader->SetFloat("attenuation", attenuation);
-		shader->SetFloat("shininess", shininess);
-		shader->SetFloat("specStr", specStr);
 		shader->SetFloat3("viewPos", cam.GetPos());
+
+		shader->SetFloat3("material.diffuseColor", color);
+		shader->SetFloat("material.celThreshold", celThreshold);
+		shader->SetFloat("material.celAttenuation", attenuation);
+		shader->SetFloat("material.shininess", shininess);
 
 		glBindVertexArray(objVAO);
 		glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);

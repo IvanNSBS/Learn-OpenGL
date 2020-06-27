@@ -46,9 +46,7 @@ void Mesh::SetupMesh() {
 }
 
 
-void Mesh::SetMaterial(Material* mat) {
-    material = mat;
-}
+void Mesh::SetMaterial(Material* mat) { material = mat; }
 
 
 void Mesh::Draw() {
