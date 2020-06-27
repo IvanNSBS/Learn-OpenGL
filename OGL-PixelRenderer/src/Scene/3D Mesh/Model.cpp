@@ -2,11 +2,11 @@
 
 
 Model::Model(const char* path, const char* vert, const char* frag) {
+	_shader = new ShaderProgram(vert, frag);
 	LoadFromFile(path);
 	printf("Number of Meshes: %i\n", _meshes.size());
 	printf("Number of Mesh[0] vertices: %i\n", _meshes[0].vertices.size());
 	printf("Number of Mesh[0] indices: %i\n", _meshes[0].indices.size());
-	_shader = new ShaderProgram(vert, frag);
 }
 Model::~Model() { }
 
@@ -93,7 +93,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		material->Get
 	}
 	*/
-
 	return Mesh(vertices, indices, new Material(_shader));
 }
 

@@ -12,7 +12,8 @@ Mesh::Mesh (
 Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs) : vertices(verts) {
     SetupMesh();
 }
-Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, Material* mat) : material(mat), vertices(verts), indices(idxs) {
+Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, Material* mat) : vertices(verts), indices(idxs) {
+    material = mat;
     SetupMesh();
 }
 
@@ -60,7 +61,7 @@ void Mesh::Draw() {
         return;
     }
 
-    //material->Use();
+    material->Use();
 
     glBindVertexArray(_VAO);
     glDrawArrays(GL_TRIANGLES, 0, vertices.size());

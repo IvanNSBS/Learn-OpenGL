@@ -1,6 +1,6 @@
 #include "Material.h"
 
-Material::Material(ShaderProgram* sp) : _shader(sp) { 
+Material::Material(ShaderProgram* sp) { 
 	_shader = sp;
 }
 
@@ -10,7 +10,7 @@ Material::Material(
 	float thr, 
 	float att, 
 	float shinn, 
-	glm::vec3 col) : _shader(sp), _celThreshold(thr), _attenuation(att), _shininess(shinn), _color(col)
+	glm::vec3 col) : _celThreshold(thr), _attenuation(att), _shininess(shinn), _color(col)
 {
 	_shader = sp;
 }
@@ -36,5 +36,5 @@ void Material::BeginProperty() {
 	ImGui::Text("Cel Attenuation: ");
 	ImGui::DragFloat("###attenuation", &_attenuation, 0.0025f, 0.0f, 1.0f);
 	ImGui::Text("Shininess: ");
-	ImGui::DragFloat("###shininess", &_shininess, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat("###shininess", &_shininess, 0.1f, 0.0f, 64.0f);
 }
