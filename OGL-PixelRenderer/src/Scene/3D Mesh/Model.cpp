@@ -3,6 +3,9 @@
 
 Model::Model(const char* path, const char* vert, const char* frag) {
 	LoadFromFile(path);
+	printf("Number of Meshes: %i\n", _meshes.size());
+	printf("Number of Mesh[0] vertices: %i\n", _meshes[0].vertices.size());
+	printf("Number of Mesh[0] indices: %i\n", _meshes[0].indices.size());
 	_shader = new ShaderProgram(vert, frag);
 }
 Model::~Model() { }
@@ -20,6 +23,8 @@ glm::mat4* Model::ModelMatrix() {
 
 void Model::Draw(Camera* cam) 
 {
+	_shader->Bind();
+
 	_shader->SetMat4("model", GL_FALSE, glm::value_ptr(*ModelMatrix()));
 	_shader->SetMat4("view", GL_FALSE, glm::value_ptr(*cam->get_view_matrix()));
 	_shader->SetMat4("projection", GL_FALSE, glm::value_ptr(*cam->get_projection_matrix()));
@@ -34,7 +39,7 @@ void Model::Draw(Camera* cam)
 void Model::BeginProperty() {
 	int i = 0;
 	for (auto mesh : _meshes) {
-		if (ImGui::CollapsingHeader(("Mesh " + std::to_string(0)).c_str())) {
+		if (ImGui::CollapsingHeader(("Mesh " + std::to_string(0)).c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
 			mesh.BeginProperty();
 		}
 	}
@@ -70,6 +75,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		}
 		else
 			vertex.texUv = { 0, 0 };
+
+		vertices.push_back(vertex);
 	}
 
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -87,7 +94,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	*/
 
-	return Mesh(vertices, indices);
+	return Mesh(vertices, indices, new Material(_shader));
 }
 
 

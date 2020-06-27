@@ -10,6 +10,7 @@
 
 #include "Scene/Cameras/PerspectiveCam.h"
 #include "Scene/PHObject.h"
+#include "Scene/3D Mesh/Model.h"
 
 #include "OpenGL/Buffers/FrameBuffer.h"
 
@@ -103,6 +104,12 @@ int main()
 
     Transform trf({ 0,0,0 }, { 0,0,0 }, {1, 1, 1});
     PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+
+    Model model(objMeshPath, objVertPath, objFragPath);
+
+    PR_PropertyWindow modelWindow("Model", &model);
+    prWindowManager.AddWindow(&modelWindow);
+
     obj.Start();
     glEnable(GL_DEPTH_TEST);
 
@@ -127,7 +134,8 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
         glEnable(GL_DEPTH_TEST);
-        obj.Draw(cam);
+        //obj.Draw(cam);
+        model.Draw(&cam);
 
         frameBuffer.Unbind();
 

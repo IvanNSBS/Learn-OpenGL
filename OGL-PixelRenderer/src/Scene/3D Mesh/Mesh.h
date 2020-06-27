@@ -30,6 +30,7 @@ public:
 	Material* material = nullptr;
 
 	Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, const std::vector<Texture>& texs);
+	Mesh(const std::vector<Vertex>& verts, const  std::vector<GLuint>& idxs, Material* mat);
 	Mesh(const std::vector<Vertex>& verts, const  std::vector<GLuint>& idxs);
 	~Mesh();
 
