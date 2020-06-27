@@ -70,13 +70,13 @@ void FrameBuffer::Resize(unsigned int nwidth, unsigned int nheight) {
 }
 
 void FrameBuffer::BeginProperty() {
-    //static int size[] = { _width, _height };
+    static int size[] = { _width, _height };
     ImGui::Text("FrameBuffer Size: ");
-    //ImGui::DragInt2("###size", size, 1, 32, 512);
+    ImGui::DragInt2("###size", size, 1, 32, 512);
 
-    //if (size[0] != _width || size[1] != _height) {
-        //Resize(size[0], size[1]);
-    //}
+    if (size[0] != _width || size[1] != _height) {
+        Resize(size[0], size[1]);
+    }
 }
 
 GLuint* FrameBuffer::GetColorAttachment() {
