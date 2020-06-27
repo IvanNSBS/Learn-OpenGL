@@ -19,7 +19,7 @@ void PR_Viewport::Update() {
 		End();
 	else {
 		ImVec2 size = ImGui::GetContentRegionAvail();
-		ImGui::Image((void*)(intptr_t)*_buffer->GetColorAttachment(), { _viewportSize.x, _viewportSize.y });
+		ImGui::Image((void*)(intptr_t)*_buffer->GetColorAttachment(), { _viewportSize.x, _viewportSize.y }, { 0, 1 }, { 1, 0 });
 
 		if (_viewportSize != glm::vec2{ size.x, size.y }) {
 			_viewportSize = { size.x, size.y };

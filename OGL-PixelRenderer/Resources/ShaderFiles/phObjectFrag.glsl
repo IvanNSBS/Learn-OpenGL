@@ -50,7 +50,7 @@ void main(){
 		specular = vec3(1);
 	}
 
-	result = (ambient + diffuse + specular) * material.diffuseColor;
+	result = material.diffuseColor;
 
 	FragColor = vec4(result, 1);
 }

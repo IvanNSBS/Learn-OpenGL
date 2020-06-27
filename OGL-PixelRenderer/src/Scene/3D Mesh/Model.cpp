@@ -17,8 +17,7 @@ Model::~Model() {
 
 glm::mat4* Model::ModelMatrix() {
 	_model = glm::mat4(1.f);
-	glm::vec3 nScale = glm::vec3(_scale.x, -_scale.y, _scale.z);
-	_model = glm::scale(_model, nScale);
+	_model = glm::scale(_model, _scale);
 	_model = glm::translate(_model, _position);
 	_model = glm::rotate(_model, glm::radians(_rotation.x), glm::vec3(1, 0, 0));
 	_model = glm::rotate(_model, glm::radians(_rotation.y), glm::vec3(0, 1, 0));
