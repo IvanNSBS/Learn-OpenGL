@@ -43,6 +43,13 @@ void Model::Draw(Camera* cam)
 
 void Model::BeginProperty() {
 	int i = 0;
+	ImGui::Text("Position: ");
+	ImGui::DragFloat3("###modelPos", glm::value_ptr(_position), 0.05f);
+	ImGui::Text("Rotation: ");
+	ImGui::DragFloat3("###modelRot", glm::value_ptr(_rotation), 0.1f);
+	ImGui::Text("Scale: ");
+	ImGui::DragFloat3("###modelScale", glm::value_ptr(_scale), 0.05f);
+
 	for (auto mesh : _meshes) {
 		if (ImGui::CollapsingHeader(("Mesh " + std::to_string(0)).c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
 			mesh->BeginProperty();
