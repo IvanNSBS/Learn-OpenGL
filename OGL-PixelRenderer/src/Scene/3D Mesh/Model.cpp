@@ -42,7 +42,6 @@ void Model::Draw(Camera* cam)
 }
 
 void Model::BeginProperty() {
-	int i = 0;
 	ImGui::Text("Position: ");
 	ImGui::DragFloat3("###modelPos", glm::value_ptr(_position), 0.05f);
 	ImGui::Text("Rotation: ");
@@ -50,10 +49,12 @@ void Model::BeginProperty() {
 	ImGui::Text("Scale: ");
 	ImGui::DragFloat3("###modelScale", glm::value_ptr(_scale), 0.05f);
 
+	int i = 0;
 	for (auto mesh : _meshes) {
-		if (ImGui::CollapsingHeader(("Mesh " + std::to_string(0)).c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
+		if (ImGui::CollapsingHeader(mesh->material->Name().c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
 			mesh->BeginProperty();
 		}
+		i++;
 	}
 
 }
@@ -63,7 +64,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene) {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		_meshes.push_back(ProcessMesh(mesh, scene));
+		_meshes.push_back(ProcessMesh(mesh, node, scene));
 	}
 	// then do the same for each of its children
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -72,11 +73,34 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene) {
 	}
 }
 
-Mesh* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	//std::vector<Texture> textures;
+
+	aiVector3D pos, scale, axis;
+	ai_real rotAngle;
+	node->mTransformation.Decompose(scale, axis, rotAngle, pos);
+
+	glm::vec3 glmpos, glmscale, glmaxis;
+	glmpos = { pos.x, pos.y, pos.z };
+	glmscale = { scale.x, scale.y, scale.z };
+	glmaxis = { axis.x, axis.y, axis.z };
+
+	glmpos /= 100.0f;
+	glmscale /= 100.0f;
+
+	printf("Transform: \n");
+	printf("\tScale: (%f, %f, %f)\n", glmscale.x, glmscale.y, glmscale.z);
+	printf("\tPosition: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
+	printf("\tRotationAxis and Angle: (%f, %f, %f) | angle: %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
+
+	glm::mat4 transform(1.f);
+	transform = glm::translate(transform, glmpos);
+	if(glmaxis.length() > 0.001f && rotAngle >= 0.001f)
+		transform = glm::rotate(transform, (float)rotAngle, glmaxis);
+	transform = glm::scale(transform, glmscale);
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex;
@@ -88,6 +112,12 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		else
 			vertex.texUv = { 0, 0 };
 
+		glm::vec4 npos = { vertex.pos.x, vertex.pos.y, vertex.pos.z, 1.0f };
+		vertex.pos = transform * npos;
+
+		glm::mat3 norm = glm::transpose(glm::inverse(transform));
+		vertex.normal = norm * vertex.normal;
+
 		vertices.push_back(vertex);
 	}
 
@@ -98,14 +128,24 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 			indices.push_back(face.mIndices[j]);
 	}
 
-	/*
+	
 	if (mesh->mMaterialIndex >= 0)
 	{
-		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		material->Get
+		aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
+
+		aiString name;
+		aiColor3D diffColor;
+		float shininess;
+
+		aiMat->Get(AI_MATKEY_NAME, name);
+		aiMat->Get(AI_MATKEY_COLOR_DIFFUSE, diffColor);
+		aiMat->Get(AI_MATKEY_SHININESS, shininess);
+
+		Material* mat = new Material(_shader, name.C_Str(), 0.7, 0.7, 0.1f, {diffColor.r, diffColor.g, diffColor.b});
+		return new Mesh(vertices, indices, mat);
 	}
-	*/
-	return new Mesh(vertices, indices, new Material(_shader));
+	
+	return new Mesh(vertices, indices, new Material(_shader, ""));
 }
 
 

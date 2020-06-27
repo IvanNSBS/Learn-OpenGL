@@ -99,19 +99,21 @@ int main()
 
     const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
     const char* objFragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectFrag.glsl";
-    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\monkey_smooth.obj";
-    //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage.fbx";
+    //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\monkey_smooth.obj";
+    //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\nanosuit.obj";
+    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage.fbx";
 
+    //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage.dae";
 
     Transform trf({ 0,0,0 }, { 0,0,0 }, {1, 1, 1});
-    PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+    //PHObject obj(objMeshPath, trf, objVertPath, objFragPath);
+    //obj.Start();
 
     Model model(objMeshPath, objVertPath, objFragPath);
 
     PR_PropertyWindow modelWindow("Model", &model);
     prWindowManager.AddWindow(&modelWindow);
 
-    obj.Start();
     glEnable(GL_DEPTH_TEST);
 
     // render loop
@@ -147,7 +149,7 @@ int main()
 
         prWindowManager.Update();
         //cam.begin_imgui();
-        obj.start_imgui();
+        //obj.start_imgui();
 
         prWindowManager.Render();
 

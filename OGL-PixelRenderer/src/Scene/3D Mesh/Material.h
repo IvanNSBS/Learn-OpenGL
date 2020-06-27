@@ -12,15 +12,17 @@ class Material : public PR_PropertyDef
 
 public:
 
-	Material(ShaderProgram* sp);
-	Material(ShaderProgram* sp, float thr, float att, float shinn, glm::vec3 col);
+	Material(ShaderProgram* sp, const char* name);
+	Material(ShaderProgram* sp, const char*name, float thr, float att, float shinn, glm::vec3 col);
 	~Material();
 
 	void Use();
 	void BeginProperty() override;
+	std::string Name() { return _name;  }
 
 private:
 	ShaderProgram* _shader;
+	std::string _name;
 
 	// temp values for shader
 	float _celThreshold = 0.425f;
