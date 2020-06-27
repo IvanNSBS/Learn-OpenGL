@@ -20,7 +20,6 @@ Material::~Material() { }
 
 
 void Material::Use() {
-
 	_shader->SetFloat3("material.diffuseColor", _color);
 	_shader->SetFloat("material.celThreshold", _celThreshold);
 	_shader->SetFloat("material.celAttenuation", _attenuation);
