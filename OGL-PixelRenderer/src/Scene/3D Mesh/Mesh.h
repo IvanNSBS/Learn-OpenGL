@@ -40,7 +40,7 @@ public:
 	void BeginProperty() override;
 
 private:
-	GLuint _VAO, _VBO, _EBO;
+	GLuint _vertexArray, _vertexBuffer, _indexBuffer;
 	void SetupMesh();
 };
 

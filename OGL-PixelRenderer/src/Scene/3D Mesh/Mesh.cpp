@@ -22,23 +22,23 @@ Mesh::~Mesh() {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glDeleteVertexArrays(1, &_VAO);
-    glDeleteBuffers(1, &_VBO);
-    glDeleteBuffers(1, &_EBO);
+    glDeleteVertexArrays(1, &_vertexArray);
+    glDeleteBuffers(1, &_vertexBuffer);
+    glDeleteBuffers(1, &_indexBuffer);
 }
 
 void Mesh::SetupMesh() {
-	glGenVertexArrays(1, &_VAO);
-	glGenBuffers(1, &_VBO);
-	glGenBuffers(1, &_EBO);
+	glGenVertexArrays(1, &_vertexArray);
+	glGenBuffers(1, &_vertexBuffer);
+	glGenBuffers(1, &_indexBuffer);
 
-	glBindVertexArray(_VAO);
+	glBindVertexArray(_vertexArray);
 
-    glBindBuffer(GL_ARRAY_BUFFER, _VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
 
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
     // vertex positions
@@ -66,7 +66,7 @@ void Mesh::Draw() {
 
     material->Use();
 
-    glBindVertexArray(_VAO);
+    glBindVertexArray(_vertexArray);
     //glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
