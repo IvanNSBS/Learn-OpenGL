@@ -19,9 +19,12 @@ Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, Ma
 
 
 Mesh::~Mesh() {
-    //glDeleteVertexArrays(1, &_VAO);
-    //glDeleteBuffers(1, &_VBO);
-    //glDeleteBuffers(1, &_EBO);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glDeleteVertexArrays(1, &_VAO);
+    glDeleteBuffers(1, &_VBO);
+    glDeleteBuffers(1, &_EBO);
 }
 
 void Mesh::SetupMesh() {

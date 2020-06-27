@@ -5,10 +5,15 @@ Model::Model(const char* path, const char* vert, const char* frag) {
 	_shader = new ShaderProgram(vert, frag);
 	LoadFromFile(path);
 	printf("Number of Meshes: %i\n", _meshes.size());
-	printf("Number of Mesh[0] vertices: %i\n", _meshes[0].vertices.size());
-	printf("Number of Mesh[0] indices: %i\n", _meshes[0].indices.size());
+	printf("Number of Mesh[0] vertices: %i\n", _meshes[0]->vertices.size());
+	printf("Number of Mesh[0] indices: %i\n", _meshes[0]->indices.size());
 }
-Model::~Model() { }
+Model::~Model() { 
+	for (auto mesh : _meshes) {
+		delete mesh;
+	}
+	_meshes.clear();
+}
 
 glm::mat4* Model::ModelMatrix() {
 	_model = glm::mat4(1.f);
@@ -32,7 +37,7 @@ void Model::Draw(Camera* cam)
 
 	for (auto mesh : _meshes) 
 	{
-		mesh.Draw();
+		mesh->Draw();
 	}
 }
 
@@ -40,7 +45,7 @@ void Model::BeginProperty() {
 	int i = 0;
 	for (auto mesh : _meshes) {
 		if (ImGui::CollapsingHeader(("Mesh " + std::to_string(0)).c_str(), ImGuiTreeNodeFlags_DefaultOpen)) {
-			mesh.BeginProperty();
+			mesh->BeginProperty();
 		}
 	}
 
@@ -60,7 +65,7 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene) {
 	}
 }
 
-Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+Mesh* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -93,7 +98,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		material->Get
 	}
 	*/
-	return Mesh(vertices, indices, new Material(_shader));
+	return new Mesh(vertices, indices, new Material(_shader));
 }
 
 

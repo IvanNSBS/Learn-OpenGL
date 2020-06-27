@@ -30,7 +30,7 @@ protected:
 	
 	ShaderProgram* _shader = nullptr;
 
-	std::vector<Mesh> _meshes;
+	std::vector<Mesh*> _meshes;
 
 	glm::vec3 _position = glm::vec3(0);
 	glm::vec3 _rotation = glm::vec3(0);
@@ -41,6 +41,6 @@ protected:
 	// temp function
 	bool LoadFromFile(const char *path);
 	void ProcessNode(aiNode* node, const aiScene* scene);
-	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+	Mesh* ProcessMesh(aiMesh* mesh, const aiScene* scene);
 };
 
