@@ -6,6 +6,8 @@
 #include <vector>
 #include <glad/glad.h>
 
+#include "../Animation/Joint.h"
+
 #include "Material.h"
 #include "../../ImGuiWindows/PropertyWindow/PR_PropertyDef.h"
 
@@ -41,6 +43,8 @@ public:
 
 private:
 	GLuint _vertexArray, _vertexBuffer, _indexBuffer;
+	//Joint _rootJoint;
+	//unsigned int _joint	Count;
 	void SetupMesh();
 };
 

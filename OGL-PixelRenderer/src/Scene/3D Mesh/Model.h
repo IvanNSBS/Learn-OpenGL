@@ -35,7 +35,7 @@ protected:
 
 	std::vector<Mesh*> _meshes;
 
-	glm::vec3 _position = glm::vec3(0);
+	glm::vec3 _position = glm::vec3(0, -3.3, -8.9);
 	glm::vec3 _rotation = glm::vec3(0);
 	glm::vec3 _scale = glm::vec3(1);
 	

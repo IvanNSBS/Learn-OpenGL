@@ -14,6 +14,6 @@ public:
 private:
 	float _fov, _near, _far;
 	glm::vec3 _lookAt, _up;
-	AspectType _aspectType = AspectType::Framebuffer;
+	AspectType _aspectType = AspectType::Viewport;
 };
 
