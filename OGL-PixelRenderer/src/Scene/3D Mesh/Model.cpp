@@ -8,10 +8,7 @@ Model::Model(const char* path, const char* vert, const char* frag) {
 	printf("Number of Meshes: %i\n", _meshes.size());
 
 	for (auto mesh : _meshes) {
-		printf("|-%s\n", mesh->name.c_str());
-		for (auto child : mesh->childs) {
-			printf("|----%s\n", child->name.c_str());
-		}
+		mesh->PrintTree();
 	}
 
 }
@@ -65,21 +62,38 @@ void Model::BeginProperty() {
 
 }
 
-void Model::ProcessMeshNode(aiNode* node, const aiScene* scene) {
-
+void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
+{
 	if (node->mNumMeshes > 0) {
-		_meshes.push_back(new Mesh(node->mName.C_Str()));
+		printf("Node: %s\ ", node->mName.C_Str());
+		Mesh* mesh = new Mesh(node->mName.C_Str());
+		
+
+		//add to meshes if no parent
+		//else add child for tree-like structure
+		if (parent == nullptr)
+			_meshes.push_back(mesh);
+		else
+			parent->AddChild(mesh);
+
+		// add meshesData for current mesh
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
-			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			_meshes[_meshes.size() - 1]->AddMeshData(ProcessMeshData(mesh, node, scene));
+			aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
+			mesh->AddMeshData(ProcessMeshData(aiMesh, node, scene));
+		}
+		//check if has children and process it if it has
+		for (unsigned int i = 0; i < node->mNumChildren; i++)
+		{
+			ProcessMeshNode(node->mChildren[i], scene, parent);
 		}
 	}
-	printf("Num of %s child: %i\n", node->mName.C_Str(), node->mNumChildren);
-	// then do the same for each of its children
-	for (unsigned int i = 0; i < node->mNumChildren; i++)
-	{
-		ProcessMeshNode(node->mChildren[i], scene);
+
+	else {
+		for (unsigned int i = 0; i < node->mNumChildren; i++)
+		{
+			ProcessMeshNode(node->mChildren[i], scene);
+		}
 	}
 }
 
@@ -118,11 +132,11 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 		else
 			vertex.texUv = { 0, 0 };
 
-		glm::vec4 npos = { vertex.pos.x, vertex.pos.y, vertex.pos.z, 1.0f };
-		vertex.pos = transform * npos;
+		//glm::vec4 npos = { vertex.pos.x, vertex.pos.y, vertex.pos.z, 1.0f };
+		//vertex.pos = transform * npos;
 
-		glm::mat3 norm = glm::transpose(glm::inverse(transform));
-		vertex.normal = norm * vertex.normal;
+		//glm::mat3 norm = glm::transpose(glm::inverse(transform));
+		//vertex.normal = norm * vertex.normal;
 
 		vertices.push_back(vertex);
 	}
