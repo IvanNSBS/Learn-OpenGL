@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scene\3D Mesh\MeshData.cpp" />
     <ClCompile Include="src\OpenGL\Buffers\FrameBuffer.cpp" />
     <ClCompile Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Material.cpp" />
@@ -111,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Includes\assimp\config.h" />
+    <ClInclude Include="src\Data Types\Texture.h" />
+    <ClInclude Include="src\Data Types\Vertex.h" />
+    <ClInclude Include="src\Scene\3D Mesh\MeshData.h" />
     <ClInclude Include="src\OpenGL\Buffers\FrameBuffer.h" />
     <ClInclude Include="src\Scene\3D Mesh\Material.h" />
     <ClInclude Include="src\Scene\Animation\Joint.h" />

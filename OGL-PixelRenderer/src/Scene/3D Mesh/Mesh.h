@@ -6,45 +6,27 @@
 #include <vector>
 #include <glad/glad.h>
 
+#include "MeshData.h"
 #include "../Animation/Joint.h"
 
 #include "Material.h"
 #include "../../ImGuiWindows/PropertyWindow/PR_PropertyDef.h"
 
-struct Vertex {
-	glm::vec3 pos;
-	glm::vec3 normal;
-	glm::vec2 texUv;
-};
 
-struct Texture {
-	unsigned int id;
-	std::string type;
-};
-
-class Mesh : public PR_PropertyDef
+class Mesh
 {
 public:
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
-	
-	Material* material = nullptr;
 
-	Mesh(const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, const std::vector<Texture>& texs);
-	Mesh(const std::vector<Vertex>& verts, const  std::vector<GLuint>& idxs, Material* mat);
-	Mesh(const std::vector<Vertex>& verts, const  std::vector<GLuint>& idxs);
+	std::vector<Mesh*> childs;
+	std::string name;
+
+	Mesh(std::string name);
 	~Mesh();
 
-	void SetMaterial(Material* mat);
 	void Draw();
-
-	void BeginProperty() override;
-
+	void AddMeshData(MeshData* data);
 private:
-	GLuint _vertexArray, _vertexBuffer, _indexBuffer;
-	//Joint _rootJoint;
-	//unsigned int _joint	Count;
-	void SetupMesh();
+
+	std::vector<MeshData*> _meshDataList;
 };
 

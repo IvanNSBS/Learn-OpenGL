@@ -1,12 +1,19 @@
 #include "Model.h"
 
+#include <iostream>
 
 Model::Model(const char* path, const char* vert, const char* frag) {
 	_shader = new ShaderProgram(vert, frag);
 	LoadFromFile(path);
 	printf("Number of Meshes: %i\n", _meshes.size());
-	printf("Number of Mesh[0] vertices: %i\n", _meshes[0]->vertices.size());
-	printf("Number of Mesh[0] indices: %i\n", _meshes[0]->indices.size());
+
+	for (auto mesh : _meshes) {
+		printf("|-%s\n", mesh->name.c_str());
+		for (auto child : mesh->childs) {
+			printf("|----%s\n", child->name.c_str());
+		}
+	}
+
 }
 Model::~Model() { 
 	for (auto mesh : _meshes) {
@@ -58,21 +65,25 @@ void Model::BeginProperty() {
 
 }
 
-void Model::ProcessNode(aiNode* node, const aiScene* scene) {
-	// process all the node's meshes (if any)
-	for (unsigned int i = 0; i < node->mNumMeshes; i++)
-	{
-		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		_meshes.push_back(ProcessMesh(mesh, node, scene));
+void Model::ProcessMeshNode(aiNode* node, const aiScene* scene) {
+
+	if (node->mNumMeshes > 0) {
+		_meshes.push_back(new Mesh(node->mName.C_Str()));
+		for (unsigned int i = 0; i < node->mNumMeshes; i++)
+		{
+			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			_meshes[_meshes.size() - 1]->AddMeshData(ProcessMeshData(mesh, node, scene));
+		}
 	}
+	printf("Num of %s child: %i\n", node->mName.C_Str(), node->mNumChildren);
 	// then do the same for each of its children
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		ProcessNode(node->mChildren[i], scene);
+		ProcessMeshNode(node->mChildren[i], scene);
 	}
 }
 
-Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
+MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -82,6 +93,7 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 	ai_real rotAngle;
 	node->mTransformation.Decompose(scale, axis, rotAngle, pos);
 
+
 	glm::vec3 glmpos, glmscale, glmaxis;
 	glmpos = { pos.x, pos.y, pos.z };
 	glmscale = { scale.x, scale.y, scale.z };
@@ -89,11 +101,6 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 
 	glmpos /= 100.0f;
 	glmscale /= 100.0f;
-
-	printf("Transform: \n");
-	printf("\tScale: (%f, %f, %f)\n", glmscale.x, glmscale.y, glmscale.z);
-	printf("\tPosition: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
-	printf("\tRotationAxis and Angle: (%f, %f, %f) | angle: %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
 
 	glm::mat4 transform(1.f);
 	transform = glm::translate(transform, glmpos);
@@ -144,13 +151,13 @@ Mesh* Model::ProcessMesh(aiMesh* mesh, aiNode* node, const aiScene* scene)
 
 			Material* mat = new Material(_shader, name.C_Str(), 0.01, 0.7, 0.1f, { diffColor.r, diffColor.g, diffColor.b });
 			matMap[name.C_Str()] = mat;
-			return new Mesh(vertices, indices, mat);
+			return new MeshData(mesh->mName.C_Str(), vertices, indices, mat);
 		}
 		else
-			return new Mesh(vertices, indices, matMap[name.C_Str()]);
+			return new MeshData(mesh->mName.C_Str(), vertices, indices, matMap[name.C_Str()]);
 	}
 	
-	return new Mesh(vertices, indices, new Material(_shader, ""));
+	return new MeshData(mesh->mName.C_Str(), vertices, indices, new Material(_shader, ""));
 }
 
 
@@ -165,7 +172,7 @@ bool Model::LoadFromFile(const char *path)
 		return false;
 	}
 
-	ProcessNode(scene->mRootNode, scene);
+	ProcessMeshNode(scene->mRootNode, scene);
 
 	return true;
 }
