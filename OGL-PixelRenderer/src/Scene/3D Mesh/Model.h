@@ -44,6 +44,6 @@ protected:
 	// temp function
 	bool LoadFromFile(const char *path);
 	void ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent = nullptr);
-	MeshData* ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene);
+	MeshData* ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene, Mesh* parent);
 };
 

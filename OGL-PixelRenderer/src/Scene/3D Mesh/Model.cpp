@@ -80,7 +80,7 @@ void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* aiMesh = scene->mMeshes[node->mMeshes[i]];
-			mesh->AddMeshData(ProcessMeshData(aiMesh, node, scene));
+			mesh->AddMeshData(ProcessMeshData(aiMesh, node, scene, parent));
 		}
 		//check if has children and process it if it has
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -97,7 +97,7 @@ void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
 	}
 }
 
-MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene)
+MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene, Mesh* parent)
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -113,13 +113,12 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 	glmscale = { scale.x, scale.y, scale.z };
 	glmaxis = { axis.x, axis.y, axis.z };
 
-	glmpos /= 100.0f;
-	glmscale /= 100.0f;
-
+	//glmpos /= 100.0f;
+	//glmscale /= 100.0f;
 
 	printf("Translation: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
 	printf("Rotation: (%f, %f, %f) %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
-	printf("Scale: (%f, %f, %f)\n", glmscale.x, glmscale.y, glmscale.z);
+	printf("Scale: (%f, %f, %f)\n\n", glmscale.x, glmscale.y, glmscale.z);
 
 	glm::mat4 transform(1.f);
 	transform = glm::translate(transform, glmpos);
@@ -127,6 +126,8 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 		transform = glm::rotate(transform, (float)rotAngle, glmaxis);
 	transform = glm::scale(transform, glmscale);
 
+	if(parent)
+		transform = parent->localTransform * transform;
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex;
@@ -171,13 +172,13 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 
 			Material* mat = new Material(_shader, name.C_Str(), 0.01, 0.7, 0.1f, { diffColor.r, diffColor.g, diffColor.b });
 			matMap[name.C_Str()] = mat;
-			return new MeshData(mesh->mName.C_Str(), vertices, indices, mat);
+			return new MeshData(mesh->mName.C_Str(), transform, vertices, indices, mat);
 		}
 		else
-			return new MeshData(mesh->mName.C_Str(), vertices, indices, matMap[name.C_Str()]);
+			return new MeshData(mesh->mName.C_Str(), transform, vertices, indices, matMap[name.C_Str()]);
 	}
 	
-	return new MeshData(mesh->mName.C_Str(), vertices, indices, new Material(_shader, ""));
+	return new MeshData(mesh->mName.C_Str(), transform, vertices, indices, new Material(_shader, ""));
 }
 
 

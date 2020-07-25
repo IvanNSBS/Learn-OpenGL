@@ -32,7 +32,7 @@ public:
 	void Draw();
 	void SetMaterial(Material* mat);
 
-	MeshData(std::string name, const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, Material *mat);
+	MeshData(std::string name, glm::mat4 trasnform, const std::vector<Vertex>& verts, const std::vector<GLuint>& idxs, Material *mat);
 	~MeshData();
 };
 

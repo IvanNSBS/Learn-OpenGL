@@ -2,9 +2,10 @@
 
 MeshData::MeshData(
     std::string nm,
+    glm::mat4 tr,
     const std::vector<Vertex>& verts, 
     const std::vector<GLuint>& idxs, 
-    Material* mat) : name(nm), vertices(verts), indices(idxs)
+    Material* mat) : transform(tr), name(nm), vertices(verts), indices(idxs)
 {
     material = mat;
 

@@ -15,6 +15,7 @@ void Mesh::Draw() {
 void Mesh::AddMeshData(MeshData* data)
 {
     _meshDataList.push_back(data);
+    localTransform = data->transform;
 }
 
 void Mesh::AddChild(Mesh* child)
