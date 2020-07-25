@@ -9,6 +9,7 @@
 //#include "../Animation/Joint.h"
 
 #include "Material.h"
+#include "../../Data Types/Transform.h"
 #include "../../Data Types/Vertex.h"
 #include "../../Data Types/Texture.h"
 
@@ -23,6 +24,9 @@ public:
 	std::vector<unsigned int> indices;
 	std::vector<Texture> textures;
 	std::string name;
+
+	//Transform transform;
+	glm::mat4 transform;
 
 	Material* material = nullptr;
 	void Draw();

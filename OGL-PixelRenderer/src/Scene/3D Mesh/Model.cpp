@@ -65,7 +65,7 @@ void Model::BeginProperty() {
 void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
 {
 	if (node->mNumMeshes > 0) {
-		printf("Node: %s\ ", node->mName.C_Str());
+		printf("Node: %s | Child count: %i\n", node->mName.C_Str(), node->mNumChildren);
 		Mesh* mesh = new Mesh(node->mName.C_Str());
 		
 
@@ -85,7 +85,7 @@ void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
 		//check if has children and process it if it has
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
-			ProcessMeshNode(node->mChildren[i], scene, parent);
+			ProcessMeshNode(node->mChildren[i], scene, mesh);
 		}
 	}
 
@@ -116,11 +116,17 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 	glmpos /= 100.0f;
 	glmscale /= 100.0f;
 
+
+	printf("Translation: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
+	printf("Rotation: (%f, %f, %f) %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
+	printf("Scale: (%f, %f, %f)\n", glmscale.x, glmscale.y, glmscale.z);
+
 	glm::mat4 transform(1.f);
 	transform = glm::translate(transform, glmpos);
 	if(glmaxis.length() > 0.001f && rotAngle >= 0.001f)
 		transform = glm::rotate(transform, (float)rotAngle, glmaxis);
 	transform = glm::scale(transform, glmscale);
+
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex;
@@ -132,11 +138,11 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 		else
 			vertex.texUv = { 0, 0 };
 
-		//glm::vec4 npos = { vertex.pos.x, vertex.pos.y, vertex.pos.z, 1.0f };
-		//vertex.pos = transform * npos;
+		glm::vec4 npos = { vertex.pos.x, vertex.pos.y, vertex.pos.z, 1.0f };
+		vertex.pos = transform * npos;
 
-		//glm::mat3 norm = glm::transpose(glm::inverse(transform));
-		//vertex.normal = norm * vertex.normal;
+		glm::mat3 norm = glm::transpose(glm::inverse(transform));
+		vertex.normal = norm * vertex.normal;
 
 		vertices.push_back(vertex);
 	}

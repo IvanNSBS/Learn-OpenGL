@@ -20,6 +20,8 @@ public:
 	std::vector<Mesh*> childs;
 	std::string name;
 
+	glm::mat4 localTransform;
+
 	Mesh(std::string name);
 	~Mesh();
 
@@ -46,7 +48,6 @@ private:
 			return;
 		
 		for (auto child : mesh->childs) {
-			//std::cout << start + "--" << childs[i]->name;
 			PrintChildTree(child, depth+1);
 		}
 

@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClInclude Include="Includes\assimp\config.h" />
     <ClInclude Include="src\Data Types\Texture.h" />
+    <ClInclude Include="src\Data Types\Transform.h" />
     <ClInclude Include="src\Data Types\Vertex.h" />
     <ClInclude Include="src\Scene\3D Mesh\MeshData.h" />
     <ClInclude Include="src\OpenGL\Buffers\FrameBuffer.h" />
