@@ -94,7 +94,10 @@
     <ClCompile Include="src\Scene\3D Mesh\Material.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Mesh.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Model.cpp" />
+    <ClCompile Include="src\Scene\Animation\Animation.cpp" />
+    <ClCompile Include="src\Scene\Animation\Animator.cpp" />
     <ClCompile Include="src\Scene\Animation\Joint.cpp" />
+    <ClCompile Include="src\Scene\Animation\Keyframe.cpp" />
     <ClCompile Include="src\Scene\Cameras\PerspectiveCam.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui.cpp" />
@@ -118,7 +121,10 @@
     <ClInclude Include="src\Scene\3D Mesh\MeshData.h" />
     <ClInclude Include="src\OpenGL\Buffers\FrameBuffer.h" />
     <ClInclude Include="src\Scene\3D Mesh\Material.h" />
+    <ClInclude Include="src\Scene\Animation\Animation.h" />
+    <ClInclude Include="src\Scene\Animation\Animator.h" />
     <ClInclude Include="src\Scene\Animation\Joint.h" />
+    <ClInclude Include="src\Scene\Animation\Keyframe.h" />
     <ClInclude Include="src\Scene\Cameras\PerspectiveCam.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyDef.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.h" />

@@ -41,6 +41,9 @@ protected:
 	
 	glm::mat4 _model;
 
+	//Joint rootJoint;
+	int jointCount;
+
 	// temp function
 	bool LoadFromFile(const char *path);
 	void ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent = nullptr);
