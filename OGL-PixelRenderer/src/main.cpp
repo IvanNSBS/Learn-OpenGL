@@ -14,6 +14,8 @@
 
 #include "OpenGL/Buffers/FrameBuffer.h"
 
+#include "./Scene/Animation/AnimatorWindow/AnimatorWindow.h"
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -113,6 +115,11 @@ int main()
 
     PR_PropertyWindow modelWindow("Model", &model);
     prWindowManager.AddWindow(&modelWindow);
+
+
+    /// ANIMATOR WINDOW
+    AnimTimeline timeline(100, "Animation Timeline");
+    prWindowManager.AddWindow(&timeline);
 
     glEnable(GL_DEPTH_TEST);
 

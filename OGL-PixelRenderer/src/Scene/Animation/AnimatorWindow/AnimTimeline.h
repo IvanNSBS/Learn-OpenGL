@@ -6,7 +6,7 @@ class AnimTimeline : public PR_Window
 {
 public:
 	void Update() override;
-	AnimTimeline(const int& maxFrames) : _maxFrames(maxFrames), PR_Window("Animation Timeline"){}
+	AnimTimeline(const int& maxFrames, const std::string& name) : _maxFrames(maxFrames), PR_Window(name) { _finalFrame = maxFrames; }
 
 	// Remember: Examples i'll need to create this GUI
 	// Custom Rendering Example from Dear ImGui demo
