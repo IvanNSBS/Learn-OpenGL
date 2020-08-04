@@ -87,6 +87,18 @@
     <ClCompile Include="src\Scene\Animation\Keyframe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimatorWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimTimeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimController.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Includes\ImGUI\imconfig.h">
@@ -180,6 +192,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Animation\Keyframe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Animation\AnimatorWindow\AnimatorWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Animation\AnimatorWindow\AnimTimeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
