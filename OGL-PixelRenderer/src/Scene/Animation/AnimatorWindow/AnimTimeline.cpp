@@ -47,7 +47,7 @@ void AnimTimeline::Update()
 		//Timeline
 		ImGui::Separator();
 
-
+		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 		ImGui::PushID("##HorizontalScrolling");
 		float child_height = ImGui::GetTextLineHeight() + style.ScrollbarSize + style.WindowPadding.y * 2.0f;
 		ImGuiWindowFlags child_flags = ImGuiWindowFlags_HorizontalScrollbar;
@@ -69,7 +69,7 @@ void AnimTimeline::Update()
 		ImVec2 window_center = ImVec2(window_pos.x + window_size.x * 0.5f, window_pos.y + window_size.y * 0.5f);
 		ImVec2 top{ window_center.x + _finalFrame, window_center.y + window_size.y/2 };
 		ImVec2 bottom{ window_center.x + _finalFrame, window_center.y - window_size.y/2};
-		ImGui::GetForegroundDrawList()->AddLine(top, bottom, IM_COL32(255, 0, 0, 150), 1.5f);
+		draw_list->AddLine(top, bottom, IM_COL32(255, 0, 0, 150), 1.5f);
 
 		End();
 	}
