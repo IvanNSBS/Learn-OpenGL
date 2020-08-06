@@ -30,13 +30,15 @@ public:
 	// Use ImGui custom renderer to draw the timeline vertical progress line
 
 private:
+
 	int _maxFrames = 30;
 
 	int _initialFrame = 0, _finalFrame = 0;
 	int _currentFrame = 0;
 	int _frameSampling = 30; // number of frames per second
 
-	float _animationDuration = 0.f;
+	float _animationDuration = 7.5f;
 	float _currentTime = 0.f;
+	int loopCount = 0;
 };
 
