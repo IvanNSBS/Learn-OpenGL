@@ -118,6 +118,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Data Types\JointTransform.h" />
     <ClInclude Include="src\Scene\Animation\AnimatorWindow\AnimatorWindow.h" />
     <ClInclude Include="Includes\assimp\config.h" />
     <ClInclude Include="src\Data Types\Texture.h" />

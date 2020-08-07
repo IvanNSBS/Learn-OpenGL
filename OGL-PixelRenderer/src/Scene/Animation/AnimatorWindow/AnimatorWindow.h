@@ -1,7 +1,6 @@
 #pragma once
 
 #include "AnimTimeline.h"
-#include "AnimController.h"
 
 #include "../../../ImGuiWindows/PR_Window.h"
 
@@ -13,6 +12,5 @@ public:
 
 private:
 	AnimTimeline* _timeLine;
-	AnimController* _controller;
 };
 

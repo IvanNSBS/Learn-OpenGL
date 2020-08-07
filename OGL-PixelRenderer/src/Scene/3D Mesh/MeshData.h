@@ -18,7 +18,7 @@ class MeshData
 private:
 	GLuint _vertexArray, _vertexBuffer, _indexBuffer;
 	//Joint _rootJoint;
-	//unsigned int _joint	Count;
+	//unsigned int _jointCount;
 public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;

@@ -32,6 +32,7 @@ public:
 		PrintChildTree(this, 0);
 	}
 private:
+	std::vector<MeshData*> _meshDataList;
 
 	void PrintChildTree(Mesh* mesh, size_t depth) {
 		std::string start = "|-";
@@ -53,8 +54,5 @@ private:
 
 	}
 
-
-
-	std::vector<MeshData*> _meshDataList;
 };
 
