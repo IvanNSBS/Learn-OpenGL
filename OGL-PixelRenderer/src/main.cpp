@@ -102,7 +102,10 @@ int main()
     const char* objVertPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectVert.glsl";
     const char* objFragPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\ShaderFiles\\phObjectFrag.glsl";
 
-    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage_Child.fbx";
+    //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage_Child.fbx";
+    const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Fighting Idle.fbx";
+
+
     //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\Mage.dae";
     //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\MageSkinned.dae";
     //const char* objMeshPath = "D:\\Visual Studio Projects\\OGL-PixelRenderer\\OGL-PixelRenderer\\Resources\\3DObjects\\astroBoy_walk_Max.dae";
