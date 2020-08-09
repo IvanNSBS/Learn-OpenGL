@@ -7,7 +7,6 @@
 #include <glad/glad.h>
 
 #include "MeshData.h"
-#include "../Animation/Joint.h"
 
 #include "Material.h"
 #include "../../ImGuiWindows/PropertyWindow/PR_PropertyDef.h"

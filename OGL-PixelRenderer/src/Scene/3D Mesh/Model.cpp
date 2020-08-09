@@ -100,6 +100,7 @@ void Model::ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent)
 MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene, Mesh* parent)
 {
 	std::vector<Vertex> vertices;
+	std::vector<VertexBone> bones;
 	std::vector<unsigned int> indices;
 	//std::vector<Texture> textures;
 
@@ -116,9 +117,9 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 	//glmpos /= 100.0f;
 	//glmscale /= 100.0f;
 
-	printf("Translation: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
-	printf("Rotation: (%f, %f, %f) %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
-	printf("Scale: (%f, %f, %f)\n\n", glmscale.x, glmscale.y, glmscale.z);
+	//printf("Translation: (%f, %f, %f)\n", glmpos.x, glmpos.y, glmpos.z);
+	//printf("Rotation: (%f, %f, %f) %f\n", glmaxis.x, glmaxis.y, glmaxis.z, rotAngle);
+	//printf("Scale: (%f, %f, %f)\n\n", glmscale.x, glmscale.y, glmscale.z);
 
 	glm::mat4 transform(1.f);
 	transform = glm::translate(transform, glmpos);
@@ -155,6 +156,25 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 			indices.push_back(face.mIndices[j]);
 	}
 
+	printf("number of bones: %d\n", mesh->mNumBones);
+	for (unsigned int i = 0; i < mesh->mNumBones; i++){
+		//mesh->mBones[i]->mOffsetMatrix
+
+		aiVector3D pos1, scale1, axis1;
+		ai_real rotAngle1;
+		mesh->mBones[i]->mOffsetMatrix.Decompose(scale1, axis1, rotAngle1, pos1);
+
+
+		glm::vec3 glmpos1, glmscale1, glmaxis1;
+		glmpos1 = { pos1.x, pos1.y, pos1.z };
+		glmscale1 = { scale1.x, scale1.y, scale1.z };
+		glmaxis1 = { axis1.x, axis1.y, axis1.z };
+
+		if(glmpos1.length() > 0)
+			printf("Bone Translation: (%f, %f, %f)\n", glmpos1.x, glmpos1.y, glmpos1.z);
+		if(rotAngle1 > 0.001f || rotAngle1 < -0.001f)
+			printf("Bone Rotation: (%f, %f, %f) %f\n", glmaxis1.x, glmaxis1.y, glmaxis1.z, rotAngle1);
+	}
 	
 	if (mesh->mMaterialIndex >= 0)
 	{
@@ -185,7 +205,8 @@ MeshData* Model::ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scen
 bool Model::LoadFromFile(const char *path)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_OptimizeMeshes | aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType | aiProcess_CalcTangentSpace | aiProcess_GlobalScale);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{

@@ -35,16 +35,18 @@ protected:
 
 	std::vector<Mesh*> _meshes;
 
+	// Model Transform Data
 	glm::vec3 _position = glm::vec3(0, -3.3, -8.9);
 	glm::vec3 _rotation = glm::vec3(0);
 	glm::vec3 _scale = glm::vec3(1);
-	
+	// Model Transform Matrix
 	glm::mat4 _model;
 
-	//Joint rootJoint;
+	//Skinned Mesh Data;
 	int jointCount;
+	glm::mat4 globalInverseTransform = glm::mat4(1);
 
-	// temp function
+	// Mesh loader Helper Functions
 	bool LoadFromFile(const char *path);
 	void ProcessMeshNode(aiNode* node, const aiScene* scene, Mesh* parent = nullptr);
 	MeshData* ProcessMeshData(aiMesh* mesh, aiNode* node, const aiScene* scene, Mesh* parent);

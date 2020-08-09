@@ -20,7 +20,6 @@ void AnimTimeline::Update()
 		ImVec2 window_size = ImGui::GetWindowSize();
 		ImVec2 region_size = ImGui::GetContentRegionAvail();
 
-		printf("regionsize: (%f, %f)\n", region_size.x, region_size.y);
 		//Header
 		static float headerEndPos = 0;
 		ImGui::BeginChild("###controller", { region_size.x * 0.3f , region_size.y }, true);

@@ -88,8 +88,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimController.cpp" />
-    <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimController.h" />
     <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimatorWindow.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\MeshData.cpp" />
     <ClCompile Include="src\OpenGL\Buffers\FrameBuffer.cpp" />
@@ -97,11 +95,7 @@
     <ClCompile Include="src\Scene\3D Mesh\Material.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Mesh.cpp" />
     <ClCompile Include="src\Scene\3D Mesh\Model.cpp" />
-    <ClCompile Include="src\Scene\Animation\Animation.cpp" />
-    <ClCompile Include="src\Scene\Animation\Animator.cpp" />
     <ClCompile Include="src\Scene\Animation\AnimatorWindow\AnimTimeline.cpp" />
-    <ClCompile Include="src\Scene\Animation\Joint.cpp" />
-    <ClCompile Include="src\Scene\Animation\Keyframe.cpp" />
     <ClCompile Include="src\Scene\Cameras\PerspectiveCam.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="Includes\ImGUI\imgui.cpp" />
@@ -118,7 +112,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Data Types\JointTransform.h" />
+    <ClInclude Include="src\Data Types\VertexBone.h" />
     <ClInclude Include="src\Scene\Animation\AnimatorWindow\AnimatorWindow.h" />
     <ClInclude Include="Includes\assimp\config.h" />
     <ClInclude Include="src\Data Types\Texture.h" />
@@ -127,11 +121,7 @@
     <ClInclude Include="src\Scene\3D Mesh\MeshData.h" />
     <ClInclude Include="src\OpenGL\Buffers\FrameBuffer.h" />
     <ClInclude Include="src\Scene\3D Mesh\Material.h" />
-    <ClInclude Include="src\Scene\Animation\Animation.h" />
-    <ClInclude Include="src\Scene\Animation\Animator.h" />
     <ClInclude Include="src\Scene\Animation\AnimatorWindow\AnimTimeline.h" />
-    <ClInclude Include="src\Scene\Animation\Joint.h" />
-    <ClInclude Include="src\Scene\Animation\Keyframe.h" />
     <ClInclude Include="src\Scene\Cameras\PerspectiveCam.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyDef.h" />
     <ClInclude Include="src\ImGuiWindows\PropertyWindow\PR_PropertyWindow.h" />
